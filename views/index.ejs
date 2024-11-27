@@ -1,11 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task Manager</title>
-  </head>
-  <body>
-    <%= user.name %>
-  </body>
-</html>
+<%- include("./partials/header.ejs") %>
+<nav
+  class="navbar fixed-top navbar-light mb-5"
+  style="background-color: #7b82db"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Never expand</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#ofcanvas"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ofcanvas  -->
+<div class="offcanvas offcanvas-start" id="ofcanvas">
+  <div class="offcanvas-header">
+    <h1 class="offcanvas-title">Heading</h1>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>Some text lorem ipsum.</p>
+    <p>Some text lorem ipsum.</p>
+    <p>Some text lorem ipsum.</p>
+    <button class="btn btn-secondary" type="button">A Button</button>
+  </div>
+</div>
+
+<!-- search  -->
+<div
+  class="container-md mb-5 d-flex justify-content-center align-items-center mt-5"
+>
+  <form role="search" class="col-8 col-sm-10 d-flex mt-5">
+    <input
+      class="form-control rounded-0"
+      type="search"
+      placeholder="Search..."
+    />
+    <button type="submit" class="btn btn-outline-primary rounded-0">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</div>
+<!-- content  -->
+<div class="container-md d-flex justify-content-center align-items-center">
+  <div class="content col-8 col-sm-10">
+    <!-- Recent Project  -->
+    <div class="d-flex mb-4 justify-content-between">
+      <h4 class="">Recent Projects</h4>
+      <a class="" href="#">View all</a>
+    </div>
+    <!-- list card  -->
+    <ul
+      class="list-group list-group-horizontal position-relative overflow-auto w-100 mb-5"
+    >
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+      <li class="list-group-item p-0 me-5 border-0">
+        <div
+          class="card border-0 custom-shadow"
+          style="width: 320px; height: 250px; background-color: #7b82db"
+        ></div>
+      </li>
+    </ul>
+    <!-- today task  -->
+    <div class="d-flex mb-4 justify-content-between">
+      <h4>Today tasks</h4>
+      <a href="#">View all</a>
+    </div>
+    <div class="today-task">
+      <div class="list-group mb-5">
+        <div class="list-group-item w-100 bg-info d-flex shadow mb-4 border-0">
+          <i class="fa-solid fa-folder me-4 today-task-icon"></i>
+          <div class="d-flex">
+            <div class="me-5">
+              <p class="mb-1 m-0 p-0">Name Project</p>
+              <p class="m-0 p-0 w-auto">16-1-2024 - 16-2-2024</p>
+            </div>
+            <div class="d-flex align-items-center me-5">
+              <i class="fa-brands fa-rocketchat me-1"></i>
+              <p class="m-0 p-0">16</p>
+            </div>
+          </div>
+        </div>
+        <div class="list-group-item w-100 bg-info d-flex shadow mb-4 border-0">
+          <i class="fa-solid fa-folder me-4 today-task-icon"></i>
+          <div class="d-flex">
+            <div class="me-5">
+              <p class="mb-1 m-0 p-0">Name Project</p>
+              <p class="m-0 p-0 w-auto">16-1-2024 - 16-2-2024</p>
+            </div>
+            <div class="d-flex align-items-center me-5">
+              <i class="fa-brands fa-rocketchat me-1"></i>
+              <p class="m-0 p-0">16</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("./partials/footer.ejs") %>
