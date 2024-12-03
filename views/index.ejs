@@ -1,10 +1,13 @@
 <%- include("./partials/header.ejs") %>
-<nav
-  class="navbar fixed-top navbar-light mb-5"
-  style="background-color: #7b82db"
->
+<nav class="navbar fixed-top navbar-light mb-5 p-0">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Never expand</a>
+    <a class="navbar-brand p-0" href="#"
+      ><img
+        class="rounded-circle"
+        style="width: 50px; height: auto"
+        src="./images/user.png"
+        alt="logo_user"
+    /></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -59,55 +62,84 @@
     </div>
     <!-- list card  -->
     <ul
-      class="list-group list-group-horizontal position-relative overflow-auto w-100 mb-5"
+      class="list-group list-group-horizontal overflow-auto w-100 mb-5 py-2 px-4"
     >
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
+      <!-- element card  -->
+      <!-- trừ phần tử đầu còn lại tất cả sẽ có ms-5  -->
+      <li class="list-group-item p-0 border-0">
+        <div class="card border-0 custom-shadow p-2">
+          <div
+            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
+          >
+            <div class="d-flex">
+              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
+              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
+            </div>
+            <!-- detail task  -->
+            <a href=""><i class="fa-solid fa-ellipsis"></i></a>
+          </div>
+          <div class="card-body py-0">
+            <!-- title content  -->
+            <div class="card-title d-flex">
+              <i class="fa-regular fa-calendar">
+                <p class="ms-2">19/2/1999</p>
+              </i>
+              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
+              <i class="fa-solid fa-link ms-5"><p class="ms-2">09</p></i>
+            </div>
+          </div>
+          <img class="card-img-bottom" src="./images/test.jpg" />
+        </div>
       </li>
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
+      <li class="list-group-item p-0 ms-5 border-0">
+        <div class="card border-0 custom-shadow p-2">
+          <div
+            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
+          >
+            <div class="d-flex">
+              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
+              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
+            </div>
+            <!-- detail task  -->
+            <a href=""><i class="fa-solid fa-ellipsis"></i></a>
+          </div>
+          <div class="card-body py-0">
+            <!-- title content  -->
+            <div class="card-title d-flex">
+              <i class="fa-regular fa-calendar">
+                <p class="ms-2">19/2/1999</p>
+              </i>
+              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
+              <i class="fa-solid fa-link ms-5"><p class="ms-2">09</p></i>
+            </div>
+          </div>
+          <img class="card-img-bottom" src="./images/test1.jpg" />
+        </div>
       </li>
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
-      </li>
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
-      </li>
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
-      </li>
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
-      </li>
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
-      </li>
-      <li class="list-group-item p-0 me-5 border-0">
-        <div
-          class="card border-0 custom-shadow"
-          style="width: 320px; height: 250px; background-color: #7b82db"
-        ></div>
+      <li class="list-group-item p-0 ms-5 border-0">
+        <div class="card border-0 custom-shadow p-2">
+          <div
+            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
+          >
+            <div class="d-flex">
+              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
+              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
+            </div>
+            <!-- detail task  -->
+            <a href=""><i class="fa-solid fa-ellipsis"></i></a>
+          </div>
+          <div class="card-body py-0">
+            <!-- title content  -->
+            <div class="card-title d-flex">
+              <i class="fa-regular fa-calendar">
+                <p class="ms-2">19/2/1999</p>
+              </i>
+              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
+              <i class="fa-solid fa-link ms-5"><p class="ms-2">09</p></i>
+            </div>
+          </div>
+          <img class="card-img-bottom" src="./images/test2.jpg" />
+        </div>
       </li>
     </ul>
     <!-- today task  -->
@@ -117,7 +149,7 @@
     </div>
     <div class="today-task">
       <div class="list-group mb-5">
-        <div class="list-group-item w-100 bg-info d-flex shadow mb-4 border-0">
+        <div class="list-group-item w-100 d-flex shadow mb-4 border-0">
           <i class="fa-solid fa-folder me-4 today-task-icon"></i>
           <div class="d-flex">
             <div class="me-5">
@@ -125,12 +157,12 @@
               <p class="m-0 p-0 w-auto">16-1-2024 - 16-2-2024</p>
             </div>
             <div class="d-flex align-items-center me-5">
-              <i class="fa-brands fa-rocketchat me-1"></i>
+              <i class="fa-regular fa-comment"></i>
               <p class="m-0 p-0">16</p>
             </div>
           </div>
         </div>
-        <div class="list-group-item w-100 bg-info d-flex shadow mb-4 border-0">
+        <div class="list-group-item w-100 d-flex shadow mb-4 border-0">
           <i class="fa-solid fa-folder me-4 today-task-icon"></i>
           <div class="d-flex">
             <div class="me-5">
@@ -138,7 +170,7 @@
               <p class="m-0 p-0 w-auto">16-1-2024 - 16-2-2024</p>
             </div>
             <div class="d-flex align-items-center me-5">
-              <i class="fa-brands fa-rocketchat me-1"></i>
+              <i class="fa-regular fa-comment"></i>
               <p class="m-0 p-0">16</p>
             </div>
           </div>

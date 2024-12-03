@@ -7,6 +7,10 @@ app.get("/", (req, res) => {
   req.user = { name: "Đặng Cao Hậu", tuoi: 20 };
   res.render("index.ejs", { user: req.user });
 });
+app.get("/:other_page", (req, res) => {
+  const other_page = req.params.other_page;
+  res.render(`${other_page}.ejs`);
+});
 app.listen(port, (req, res) => {
   console.log(`Server running on http://localhost:${port}`);
 });
