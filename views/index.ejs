@@ -1,11 +1,11 @@
 <%- include("./partials/header.ejs") %>
 <nav class="navbar fixed-top navbar-light mb-5 p-0">
   <div class="container-fluid">
-    <a class="navbar-brand p-0" href="#"
+    <a class="navbar-brand p-0" href="profile"
       ><img
         class="rounded-circle"
         style="width: 50px; height: auto"
-        src="./images/user.png"
+        src="./images/user.jpg"
         alt="logo_user"
     /></a>
     <button
@@ -21,8 +21,15 @@
 
 <!-- ofcanvas  -->
 <div class="offcanvas offcanvas-start" id="ofcanvas">
-  <div class="offcanvas-header">
-    <h1 class="offcanvas-title">Heading</h1>
+  <div class="offcanvas-header border-bottom">
+    <a class="navbar-brand p-0" href="profile"
+      ><img
+        class="rounded-circle"
+        style="width: 50px; height: auto"
+        src="./images/user.jpg"
+        alt="logo_user"
+    /></a>
+    <p class="m-0">Đặng Cao Hậu</p>
     <button
       type="button"
       class="btn-close"
@@ -30,10 +37,54 @@
     ></button>
   </div>
   <div class="offcanvas-body">
-    <p>Some text lorem ipsum.</p>
-    <p>Some text lorem ipsum.</p>
-    <p>Some text lorem ipsum.</p>
-    <button class="btn btn-secondary" type="button">A Button</button>
+    <h6 class="mb-3">Main Menu</h6>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a href="/index" class="d-flex link-dark">
+          <i class="fa-solid fa-house me-2 d-flex align-items-center"></i>
+          <p class="m-0">Home</p>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="/list_task" class="d-flex link-dark">
+          <i class="fa-regular fa-pen-to-square me-2 d-flex align-items-center">
+          </i>
+          <p class="m-0">List Task</p>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="/chat" class="d-flex link-dark">
+          <i class="fa-regular fa-comment me-2 d-flex align-items-center"></i>
+          <p class="m-0">Chat</p>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="/notification" class="d-flex link-dark">
+          <i class="fa-regular fa-bell me-2 d-flex align-items-center"></i>
+          <p class="m-0">Notification</p>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="/profile" class="d-flex link-dark">
+          <i class="fa-regular fa-user me-2 d-flex align-items-center"></i>
+          <p class="m-0">Profile</p>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="/setting" class="d-flex link-dark">
+          <i class="fa-solid fa-gear me-2 d-flex align-items-center"></i>
+          <p class="m-0">Setting</p>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <form action="/setting" method="post">
+          <button type="submit" class="border-0 bg-transparent p-0 d-flex">
+            <i class="fa-solid fa-arrow-right-from-bracket me-2 my-auto"></i>
+            <p class="m-0">Logout</p>
+          </button>
+        </form>
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -47,7 +98,7 @@
       type="search"
       placeholder="Search..."
     />
-    <button type="submit" class="btn btn-outline-primary rounded-0">
+    <button type="submit" class="btn btn-outline-primary rounded-0 border-0">
       <i class="fas fa-search"></i>
     </button>
   </form>
@@ -85,32 +136,7 @@
                 <p class="ms-2">19/2/1999</p>
               </i>
               <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
-              <i class="fa-solid fa-link ms-5"><p class="ms-2">09</p></i>
-            </div>
-          </div>
-          <img class="card-img-bottom" src="./images/test.jpg" />
-        </div>
-      </li>
-      <li class="list-group-item p-0 ms-5 border-0">
-        <div class="card border-0 custom-shadow p-2">
-          <div
-            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
-          >
-            <div class="d-flex">
-              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
-              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
-            </div>
-            <!-- detail task  -->
-            <a href=""><i class="fa-solid fa-ellipsis"></i></a>
-          </div>
-          <div class="card-body py-0">
-            <!-- title content  -->
-            <div class="card-title d-flex">
-              <i class="fa-regular fa-calendar">
-                <p class="ms-2">19/2/1999</p>
-              </i>
-              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
-              <i class="fa-solid fa-link ms-5"><p class="ms-2">09</p></i>
+              <i class="fa-solid fa-list ms-5"><p class="ms-2">09</p></i>
             </div>
           </div>
           <img class="card-img-bottom" src="./images/test1.jpg" />
@@ -135,10 +161,35 @@
                 <p class="ms-2">19/2/1999</p>
               </i>
               <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
-              <i class="fa-solid fa-link ms-5"><p class="ms-2">09</p></i>
+              <i class="fa-solid fa-list ms-5"><p class="ms-2">09</p></i>
             </div>
           </div>
-          <img class="card-img-bottom" src="./images/test2.jpg" />
+          <img class="card-img-bottom" src="./images/test1.jpg" />
+        </div>
+      </li>
+      <li class="list-group-item p-0 ms-5 border-0">
+        <div class="card border-0 custom-shadow p-2">
+          <div
+            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
+          >
+            <div class="d-flex">
+              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
+              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
+            </div>
+            <!-- detail task  -->
+            <a href=""><i class="fa-solid fa-ellipsis"></i></a>
+          </div>
+          <div class="card-body py-0">
+            <!-- title content  -->
+            <div class="card-title d-flex">
+              <i class="fa-regular fa-calendar">
+                <p class="ms-2">19/2/1999</p>
+              </i>
+              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
+              <i class="fa-solid fa-list ms-5"><p class="ms-2">09</p></i>
+            </div>
+          </div>
+          <img class="card-img-bottom" src="./images/test1.jpg" />
         </div>
       </li>
     </ul>
@@ -149,32 +200,27 @@
     </div>
     <div class="today-task">
       <div class="list-group mb-5">
-        <div class="list-group-item w-100 d-flex shadow mb-4 border-0">
-          <i class="fa-solid fa-folder me-4 today-task-icon"></i>
-          <div class="d-flex">
-            <div class="me-5">
-              <p class="mb-1 m-0 p-0">Name Project</p>
-              <p class="m-0 p-0 w-auto">16-1-2024 - 16-2-2024</p>
+        <!-- today task item  -->
+        <a href="">
+          <div
+            class="list-group-item w-100 d-flex shadow mb-4 border-0 rounded"
+          >
+            <i class="fa-solid fa-folder me-4 today-task-icon"></i>
+            <div class="d-flex">
+              <div class="me-5">
+                <p class="mb-1 m-0 p-0">Name Project</p>
+                <p class="m-0 p-0 w-auto">16-1-2024 - 16-2-2024</p>
+              </div>
+              <div class="d-flex align-items-center me-5">
+                <i class="fa-regular fa-comment"></i>
+                <p class="m-0 p-0">16</p>
+              </div>
             </div>
-            <div class="d-flex align-items-center me-5">
-              <i class="fa-regular fa-comment"></i>
-              <p class="m-0 p-0">16</p>
-            </div>
-          </div>
-        </div>
-        <div class="list-group-item w-100 d-flex shadow mb-4 border-0">
-          <i class="fa-solid fa-folder me-4 today-task-icon"></i>
-          <div class="d-flex">
-            <div class="me-5">
-              <p class="mb-1 m-0 p-0">Name Project</p>
-              <p class="m-0 p-0 w-auto">16-1-2024 - 16-2-2024</p>
-            </div>
-            <div class="d-flex align-items-center me-5">
-              <i class="fa-regular fa-comment"></i>
-              <p class="m-0 p-0">16</p>
+            <div class="d-flex align-items-center ms-auto">
+              <i class="fa-solid fa-list"></i>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>

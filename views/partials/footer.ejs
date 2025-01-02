@@ -1,57 +1,70 @@
 <footer>
-    <!-- navbar bottom  -->
-<nav class="navbar fixed-bottom navbar-expand">
-    <div class="container">
+  <!-- navbar bottom -->
+  <nav class="navbar fixed-bottom navbar-expand">
+    <div class="container-md">
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav d-flex justify-content-evenly w-100">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#"
-              ><i class="fa-solid fa-house"></i
-            ></a>
+            <a class="nav-link" aria-current="page" href="/index">
+              <i class="fa-solid fa-house"></i>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"
-              ><i class="fa-regular fa-pen-to-square"></i
-            ></a>
+            <a class="nav-link" href="/list_task">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-regular fa-comment"></i></a>
+            <a class="nav-link" href="/chat"><i class="fa-regular fa-comment"></i></a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link pt-0 px-3 pb-3"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#addTask"
-              ><i class="fa-solid fa-plus"></i
-            ></a>
+            <a class="nav-link pt-0 px-3 pb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#addTask">
+              <i class="fa-solid fa-plus"></i>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-regular fa-bell"></i></a>
+            <a class="nav-link" href="/notification"><i class="fa-regular fa-bell"></i></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/profile"><i class="fa-regular fa-user"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></a>
+            <a class="nav-link" href="/setting"><i class="fa-solid fa-gear"></i></a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <!-- offcanvas bottom add btn  -->
-  <div class="offcanvas offcanvas-bottom" id="addTask">
+
+  <!-- offcanvas bottom add btn -->
+  <div class="offcanvas offcanvas-bottom h-100 container-md" id="addTask">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
-      <button
-        type="button"
-        class="btn-close text-reset"
-        data-bs-dismiss="offcanvas"
-        aria-label="Close"
-      ></button>
+      <h4 class="offcanvas-title" id="offcanvasBottomLabel">Create Project</h4>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body small">...</div>
+    <div class="offcanvas-body">
+      <form action="" method="post">
+        <div class="form-group">
+          <label>Project Name</label>
+          <input type="text" class="form-control" placeholder="Project Name" />
+        </div>
+        <div class="form-group">
+          <label>Visibility</label>
+          <select class="form-control">
+            <option>Public</option>
+            <option>Private</option>
+          </select>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input btn-check" type="radio" name="flexRadioDisabled">
+          <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+          <label class="btn btn-success border-0" for="btn-check-outlined">Single toggle</label><br>
+        </div>
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </div>
   </div>
 </footer>
-</body>
+
+</body> 
 </html>

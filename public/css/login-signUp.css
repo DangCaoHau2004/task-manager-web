@@ -1,0 +1,188 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  background: linear-gradient(to right, #e0e2e4, #a357f5);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+/* 2 tab sign in và sign up */
+.container {
+  background-color: white;
+  margin: auto;
+  width: 800px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  gap: 0rem; /* Khoảng cách giữa các form container */
+}
+
+/* container of sign */
+.form-container {
+  text-align: center;
+}
+
+/* icon */
+.icon {
+  height: 20px;
+  width: 20px;
+  border: 0.5px solid black;
+  border-radius: 25%;
+  padding: 5px;
+  margin: 0 10px; /*Khoảng cách giữa các icon*/
+}
+/*bao quát tất cả icon*/
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+/*điền input*/
+input {
+  height: 30px;
+  background-color: whitesmoke;
+  border: 1px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 0px 5px;
+}
+/*button chung*/
+button {
+  height: auto;
+  width: 160px;
+  height: 30px;
+  background-color: rgb(156, 27, 195);
+  color: white;
+  border: 0px;
+  border-radius: 10px;
+}
+/*định dạng forgot password anker*/
+.forgot-password {
+  color: inherit; /* Giữ màu chữ mặc định của văn bản */
+  text-decoration: none; /* Bỏ gạch chân (underline) của liên kết */
+  font-size: inherit; /* Kích cỡ chữ theo kích cỡ mặc định */
+  line-height: inherit; /* Khoảng cách dòng giống với văn bản */
+  margin: 0; /* Xóa khoảng cách ngoài của liên kết */
+  padding: 0; /* Xóa khoảng cách bên trong của liên kết */
+}
+/*định dạng paragraph trong forgot pass*/
+.forgot-password p {
+  margin-bottom: 16px;
+  margin-top: 0px;
+}
+/*toàn bộ tab sign-up*/
+.sign-up {
+  display: none;
+}
+/*tab introduce sign in*/
+.introduce.sign-in {
+  height: 399px;
+  width: 399px;
+  background-color: rgb(156, 27, 195);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  border-top-left-radius: 30%;
+  border-bottom-left-radius: 30%;
+  text-align: center;
+  color: white;
+  position: relative; /* Đặt thuộc tính position để sử dụng transform */
+}
+/*điều chỉnh introduce chung*/
+.introduce * {
+  margin-top: 70px;
+  padding: 0px 20px;
+}
+/*button trong introduce*/
+.introduce button {
+  border: 1px solid white;
+}
+/*tab introduce sign up*/
+.introduce.sign-up {
+  height: 399px;
+  width: 399px;
+  background-color: rgb(156, 27, 195);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  border-top-right-radius: 30%;
+  border-bottom-right-radius: 30%;
+  text-align: center;
+  color: white;
+  position: relative; /* Đặt thuộc tính position để sử dụng transform */
+  z-index: 1;
+}
+/*tùy biến web*/
+@media (max-width: 600px) {
+  .container {
+    display: block;
+    margin: 100px;
+    border: none;
+    margin: auto;
+  }
+
+  .introduce.sign-in {
+    background: transparent;
+    width: 100%;
+    color: black;
+    border-radius: 0;
+    border: 0;
+    padding-top: 100px;
+  }
+  .introduce.sign-up {
+    width: 100%;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+  }
+  .form-container.sign-up {
+    padding-top: 50px;
+    padding-bottom: 100px;
+  }
+}
+/*animation*/
+.animation-turnleft {
+  animation: signTurnLeft 0.5s forwards;
+}
+
+.animation-turnright {
+  animation: signTurnRight 0.5s forwards;
+}
+/*chuyển dạng border khi thao tác*/
+.change-border-sign-in {
+  border-top-right-radius: 30%;
+  border-bottom-right-radius: 30%;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+}
+.change-border-sign-up {
+  border-top-left-radius: 30%;
+  border-bottom-left-radius: 30%;
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+@keyframes signTurnLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      -400px
+    ); /*container có bề ngang là 800px mà introduce có bề ngang là 399px thì nó cần dịch 400px*/
+  }
+}
+
+@keyframes signTurnRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(400px);
+  }
+}
