@@ -1,0 +1,74 @@
+<%- include("./partials/header.ejs") %>
+<div class="container mt-sm-4 mb-5">
+  <!-- alert -->
+  <% if(locals.error){%>
+  <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+    <strong>Wrong!</strong> <%= error %>
+    <button
+      type="button"
+      class="close border-0 bg-transparent"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+  <a href="/login-signUp" class="text-center"
+    ><h1>Please click here to log in.</h1></a
+  >
+  <% } else if(locals.user){ %>
+  <div class="row gap-3 justify-content-center mb-5 pb-5">
+    <% if(locals.tasks) { tasks.forEach((task) => { %>
+    <div class="card col-md-3 p-0">
+      <div class="card-header bg-transparent">
+        <Strong>Name: <%= task.name %></Strong>
+      </div>
+      <div class="card-body p-0">
+        <div class="list-group p-0 rounded-0 border-0">
+          <a
+            href="#"
+            class="list-group-item list-group-item-action border-0 bg-secondary text-white"
+            >Description: <%= task.description %>
+          </a>
+          <a
+            href="#"
+            class="list-group-item list-group-item-action border-0 border-bottom"
+            >Priority: <%= task.priority == 1 ? "High" : task.priority == 2 ?
+            "Medium" : "Low" %>
+          </a>
+          <a
+            href="#"
+            class="list-group-item list-group-item-action border-0 border-bottom"
+            >Type: <%= task.type == 1 ? "Personal" : "Business" %></a
+          >
+          <a
+            href="#"
+            class="list-group-item list-group-item-action border-0 border-bottom"
+            ><%= task.dueDate %></a
+          >
+          <a
+            href="#"
+            class="list-group-item list-group-item-action border-0 border-bottom"
+            ><%= task.priority %></a
+          >
+          <a
+            href="#"
+            class="list-group-item list-group-item-action border-0 border-bottom"
+            ><%= task.category %></a
+          >
+        </div>
+      </div>
+      <a href="#" class="btn btn-primary border-0 rounded-0 rounded-bottom"
+        >Go somewhere</a
+      >
+      <% } ) } %>
+    </div>
+    <% } else{%>
+    <a href="/login-signUp" class="text-center"
+      ><h1>Please click here to log in.</h1></a
+    >
+
+    <% } %>
+  </div>
+  <%- include("./partials/footer.ejs") %>
+</div>

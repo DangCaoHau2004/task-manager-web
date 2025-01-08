@@ -1,11 +1,21 @@
 <%- include("./partials/header.ejs") %>
 <!-- nav -->
+
 <nav class="navbar bg-transparent">
   <div class="container-md d-flex justify-content-center border-bottom">
-    <h5 class="mb-3">Profile</h5>
+    <h5 class="mb-3">Setting</h5>
   </div>
 </nav>
-
+<% if(locals.user){ %>
+<!-- alert -->
+ <% if(locals.error){%>
+  <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+    <strong>Wrong!</strong> <%= error %>
+     <button type="button" class="close border-0 bg-transparent" data-dismiss="alert" aria-label="Close">
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+  <% }%>
 <!-- information  -->
 <div class="container-md mt-2">
   <div class="header d-flex flex-column align-items-center mt-2">
@@ -25,7 +35,7 @@
 <div class="container-md">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
-      <a href="" class="link-dark">
+      <a href="/profile" class="link-dark">
         <div class="w-100 d-flex">
           <i class="fa-regular fa-user me-2 d-flex align-items-center"></i>
           <p class="mb-0 me-auto">Profile</p>
@@ -34,7 +44,13 @@
       </a>
     </li>
     <li class="list-group-item">
-      <a href="" class="link-dark">
+      <a
+        class="link-dark w-100"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        data-bs-whatever="@mdo"
+      >
         <div class="w-100 d-flex">
           <i class="fa-solid fa-key me-2 d-flex align-items-center"></i>
           <p class="mb-0 me-auto">Change Password</p>
@@ -53,10 +69,67 @@
     </li>
   </ul>
   <div class="d-flex justify-content-center my-5">
-    <form action="" method="post">
-      <button class="btn">Log out</button>
+    <form action="/logout" method="post">
+      <button class="btn btn-primary border-0">Log out</button>
     </form>
   </div>
 </div>
 
-<%- include("./partials/footer.ejs") %>
+<!-- modal Change Password -->
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/change-password" method="post">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Old Password:</label
+            >
+            <input type="text" class="form-control" name="old_password" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >New Password:</label
+            >
+            <input type="text" class="form-control" name="new_password" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"></label>
+            Re-enter the new password:</label
+            >
+            <input type="text" class="form-control" name="re_new_password" />
+          </div>
+          <div class="mt-5">
+            <button type="button" class="btn border-0" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="submit" class="btn border-0">Change password</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% } else{%>
+<div class="container d-flex justify-content-center">
+  <a href="/login-signUp"><h1>Please click here to log in.</h1></a>
+</div>
+<% }%> <%- include("./partials/footer.ejs") %>

@@ -14,9 +14,16 @@
     />
   </head>
   <body>
+    <% if (locals.errorMessage) { %>
+    <script>
+      alert("<%= errorMessage %>");
+      window.location.href = "/login-signUp";
+    </script>
+    <% } %>
+
     <div class="container" id="container">
       <div class="form-container sign-in">
-        <form>
+        <form method="post" action="/login">
           <!-- Sign in -->
           <h1><strong>Sign In</strong></h1>
           <!-- icon -->
@@ -37,13 +44,17 @@
           <p>or use your email password</p>
           <!-- type account -->
           <div class="account-input">
-            <input type="Email" placeholder="Email" /><br />
-            <input type="Password" placeholder="Password" /><br />
+            <input type="text" placeholder="Username" name="username" /><br />
+            <input
+              type="Password"
+              placeholder="Password"
+              name="password"
+            /><br />
           </div>
           <!-- forgot password -->
           <a href="" class="forgot-password"><p>Forgot Your Password?</p></a>
           <!-- button sign -->
-          <button class="sign-button">SIGN IN</button>
+          <button class="sign-button" type="submit">SIGN IN</button>
         </form>
       </div>
 
@@ -57,9 +68,10 @@
         <p>Enter your personal details to use all of site features</p>
         <button class="change-sign-in">SIGN IN</button>
       </div>
+
       <!-- sign up -->
       <div class="form-container sign-up">
-        <form>
+        <form action="/register" method="post">
           <h1><strong>Create Account</strong></h1>
           <!-- icon -->
           <div class="social-icons">
@@ -79,9 +91,14 @@
           <p>or use your email for registeration</p>
           <!-- type account -->
           <div class="account-input">
-            <input type="Name" placeholder="Name" /><br />
-            <input type="Email" placeholder="Email" /><br />
-            <input type="Password" placeholder="Password" /><br />
+            <input type="text" placeholder="name" name="name" /><br />
+            <input type="text" placeholder="username" name="username" /><br />
+            <input type="email" placeholder="email" name="email" /><br />
+            <input
+              type="password"
+              placeholder="password"
+              name="password"
+            /><br />
           </div>
           <!-- button sign -->
           <button class="sign-button">SIGN UP</button>

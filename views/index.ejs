@@ -1,190 +1,126 @@
 <%- include("./partials/header.ejs") %>
+
 <nav class="navbar fixed-top navbar-light mb-5 p-0">
   <div class="container-fluid">
-    <a class="navbar-brand p-0" href="profile"
-      ><img
-        class="rounded-circle"
-        style="width: 50px; height: auto"
-        src="./images/user.jpg"
-        alt="logo_user"
-    /></a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#ofcanvas"
-    >
+    <a class="navbar-brand p-0" href="/profile">
+      <img class="rounded-circle" style="width: 50px; height: auto" src="./images/logo.jpg" alt="logo_user" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#ofcanvas">
       <span class="navbar-toggler-icon"></span>
     </button>
   </div>
 </nav>
 
-<!-- ofcanvas  -->
+<!-- Offcanvas menu  -->
 <div class="offcanvas offcanvas-start" id="ofcanvas">
   <div class="offcanvas-header border-bottom">
-    <a class="navbar-brand p-0" href="profile"
-      ><img
-        class="rounded-circle"
-        style="width: 50px; height: auto"
-        src="./images/user.jpg"
-        alt="logo_user"
-    /></a>
-    <p class="m-0">Đặng Cao Hậu</p>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas"
-    ></button>
-  </div>
-  <div class="offcanvas-body">
-    <h6 class="mb-3">Main Menu</h6>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <a href="/index" class="d-flex link-dark">
-          <i class="fa-solid fa-house me-2 d-flex align-items-center"></i>
-          <p class="m-0">Home</p>
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a href="/list_task" class="d-flex link-dark">
-          <i class="fa-regular fa-pen-to-square me-2 d-flex align-items-center">
-          </i>
-          <p class="m-0">List Task</p>
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a href="/chat" class="d-flex link-dark">
-          <i class="fa-regular fa-comment me-2 d-flex align-items-center"></i>
-          <p class="m-0">Chat</p>
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a href="/notification" class="d-flex link-dark">
-          <i class="fa-regular fa-bell me-2 d-flex align-items-center"></i>
-          <p class="m-0">Notification</p>
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a href="/profile" class="d-flex link-dark">
-          <i class="fa-regular fa-user me-2 d-flex align-items-center"></i>
-          <p class="m-0">Profile</p>
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a href="/setting" class="d-flex link-dark">
-          <i class="fa-solid fa-gear me-2 d-flex align-items-center"></i>
-          <p class="m-0">Setting</p>
-        </a>
-      </li>
-      <li class="list-group-item">
-        <form action="/setting" method="post">
-          <button type="submit" class="border-0 bg-transparent p-0 d-flex">
-            <i class="fa-solid fa-arrow-right-from-bracket me-2 my-auto"></i>
-            <p class="m-0">Logout</p>
-          </button>
-        </form>
-      </li>
-    </ul>
+    <% if(locals.user) { %>
+      <a class="navbar-brand p-0" href="profile">
+        <img class="rounded-circle" style="width: 50px; height: auto" src="./images/user.jpg" alt="logo_user" />
+      </a>
+      <p class="m-0"><%= user.name %></p>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <h6 class="mb-3">Main Menu</h6>
+      <ul class="list-group list-group-flush">
+        <!-- List menu items -->
+        <li class="list-group-item">
+          <a href="/index" class="d-flex link-dark">
+            <i class="fa-solid fa-house me-2 d-flex align-items-center"></i>
+            <p class="m-0">Home</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/list_task" class="d-flex link-dark">
+            <i class="fa-regular fa-pen-to-square me-2 d-flex align-items-center"></i>
+            <p class="m-0">List Task</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/chat" class="d-flex link-dark">
+            <i class="fa-regular fa-comment me-2 d-flex align-items-center"></i>
+            <p class="m-0">Chat</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/notification" class="d-flex link-dark">
+            <i class="fa-regular fa-bell me-2 d-flex align-items-center"></i>
+            <p class="m-0">Notification</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/profile" class="d-flex link-dark">
+            <i class="fa-regular fa-user me-2 d-flex align-items-center"></i>
+            <p class="m-0">Profile</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/setting" class="d-flex link-dark">
+            <i class="fa-solid fa-gear me-2 d-flex align-items-center"></i>
+            <p class="m-0">Setting</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <form action="/logout" method="post">
+            <button type="submit" class="border-0 bg-transparent p-0 d-flex">
+              <i class="fa-solid fa-arrow-right-from-bracket me-2 my-auto"></i>
+              <p class="m-0">Logout</p>
+            </button>
+          </form>
+        </li>
+      </ul>
+    </div>
+    <% } else { %>
+      <a href="/login-signUp">Login / Sign-up</a>
+    <% } %>
   </div>
 </div>
 
-<!-- search  -->
-<div
-  class="container-md mb-5 d-flex justify-content-center align-items-center mt-5"
->
+<!-- Search Bar  -->
+<div class="container-md mb-5 d-flex justify-content-center align-items-center mt-5">
   <form role="search" class="col-8 col-sm-10 d-flex mt-5">
-    <input
-      class="form-control rounded-0"
-      type="search"
-      placeholder="Search..."
-    />
+    <input class="form-control rounded-0" type="search" placeholder="Search..." />
     <button type="submit" class="btn btn-outline-primary rounded-0 border-0">
       <i class="fas fa-search"></i>
     </button>
   </form>
 </div>
-<!-- content  -->
+<% if(locals.error){%>
+  <div class="container-md d-flex justify-content-center align-items-center">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Wrong!</strong> <%= error %>
+       <button type="button" class="close border-0 bg-transparent" data-dismiss="alert">
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+  </div>
+  <% }%>
+<!-- Content Section -->
 <div class="container-md d-flex justify-content-center align-items-center">
   <div class="content col-8 col-sm-10">
-    <!-- Recent Project  -->
+    <!-- Recent Projects Section -->
     <div class="d-flex mb-4 justify-content-between">
-      <h4 class="">Recent Projects</h4>
-      <a class="" href="#">View all</a>
+      <h4>Recent Projects</h4>
+      <a href="#">View all</a>
     </div>
-    <!-- list card  -->
-    <ul
-      class="list-group list-group-horizontal overflow-auto w-100 mb-5 py-2 px-4"
-    >
-      <!-- element card  -->
-      <!-- trừ phần tử đầu còn lại tất cả sẽ có ms-5  -->
+
+    <!-- List of Cards -->
+    <ul class="list-group list-group-horizontal overflow-auto w-100 mb-5 py-2 px-4">
+      <!-- Card Item -->
       <li class="list-group-item p-0 border-0">
         <div class="card border-0 custom-shadow p-2">
-          <div
-            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
-          >
+          <div class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent">
             <div class="d-flex">
               <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
               <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
             </div>
-            <!-- detail task  -->
+            <!-- Task Detail Button -->
             <a href=""><i class="fa-solid fa-ellipsis"></i></a>
           </div>
           <div class="card-body py-0">
-            <!-- title content  -->
             <div class="card-title d-flex">
-              <i class="fa-regular fa-calendar">
-                <p class="ms-2">19/2/1999</p>
-              </i>
-              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
-              <i class="fa-solid fa-list ms-5"><p class="ms-2">09</p></i>
-            </div>
-          </div>
-          <img class="card-img-bottom" src="./images/test1.jpg" />
-        </div>
-      </li>
-      <li class="list-group-item p-0 ms-5 border-0">
-        <div class="card border-0 custom-shadow p-2">
-          <div
-            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
-          >
-            <div class="d-flex">
-              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
-              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
-            </div>
-            <!-- detail task  -->
-            <a href=""><i class="fa-solid fa-ellipsis"></i></a>
-          </div>
-          <div class="card-body py-0">
-            <!-- title content  -->
-            <div class="card-title d-flex">
-              <i class="fa-regular fa-calendar">
-                <p class="ms-2">19/2/1999</p>
-              </i>
-              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
-              <i class="fa-solid fa-list ms-5"><p class="ms-2">09</p></i>
-            </div>
-          </div>
-          <img class="card-img-bottom" src="./images/test1.jpg" />
-        </div>
-      </li>
-      <li class="list-group-item p-0 ms-5 border-0">
-        <div class="card border-0 custom-shadow p-2">
-          <div
-            class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent"
-          >
-            <div class="d-flex">
-              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
-              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
-            </div>
-            <!-- detail task  -->
-            <a href=""><i class="fa-solid fa-ellipsis"></i></a>
-          </div>
-          <div class="card-body py-0">
-            <!-- title content  -->
-            <div class="card-title d-flex">
-              <i class="fa-regular fa-calendar">
-                <p class="ms-2">19/2/1999</p>
-              </i>
+              <i class="fa-regular fa-calendar"><p class="ms-2">19/2/1999</p></i>
               <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
               <i class="fa-solid fa-list ms-5"><p class="ms-2">09</p></i>
             </div>
@@ -193,18 +129,18 @@
         </div>
       </li>
     </ul>
-    <!-- today task  -->
+
+    <!-- Today Tasks Section -->
     <div class="d-flex mb-4 justify-content-between">
       <h4>Today tasks</h4>
       <a href="#">View all</a>
     </div>
+
+    <!-- List of Today Tasks -->
     <div class="today-task">
       <div class="list-group mb-5">
-        <!-- today task item  -->
         <a href="">
-          <div
-            class="list-group-item w-100 d-flex shadow mb-4 border-0 rounded"
-          >
+          <div class="list-group-item w-100 d-flex shadow mb-4 border-0 rounded">
             <i class="fa-solid fa-folder me-4 today-task-icon"></i>
             <div class="d-flex">
               <div class="me-5">
