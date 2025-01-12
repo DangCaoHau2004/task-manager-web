@@ -3,23 +3,27 @@
 import db from "../config/database.js";
 
 function login_signUp(req, res) {
-  let errorMessage = null;
+  if (!req.session.user) {
+    let errorMessage = null;
 
-  if (req.query.errorLogin) {
-    const errorMessages = {
-      1: "Lỗi! vui lòng thử lại",
-      2: "Sai tên đăng nhập hoặc mật khẩu",
-      3: "Vui lòng nhập đầy đủ thông tin",
-      4: "Email không hợp lệ",
-      5: "Tài khoản hoặc email đã tồn tại",
-      6: "Vui lòng đăng nhập để thực hiện chức năng này",
-    };
-    errorMessage = errorMessages[req.query.errorLogin];
+    if (req.query.errorLogin) {
+      const errorMessages = {
+        1: "Lỗi! vui lòng thử lại",
+        2: "Sai tên đăng nhập hoặc mật khẩu",
+        3: "Vui lòng nhập đầy đủ thông tin",
+        4: "Email không hợp lệ",
+        5: "Tài khoản hoặc email đã tồn tại",
+        6: "Vui lòng đăng nhập để thực hiện chức năng này",
+      };
+      errorMessage = errorMessages[req.query.errorLogin];
+    }
+    res.render("login-signUp.ejs", {
+      user: req.session.user,
+      errorMessage: errorMessage,
+    });
+  } else {
+    res.redirect("/");
   }
-  res.render("login-signUp.ejs", {
-    user: req.session.user,
-    errorMessage: errorMessage,
-  });
 }
 // feature
 function login(req, res) {

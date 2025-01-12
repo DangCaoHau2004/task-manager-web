@@ -1,0 +1,94 @@
+<%- include("../partials/header.ejs") %> <% if(locals.user) {%> <%
+if(locals.tasks){ %>
+  <% if(locals.errorMessage){%>
+
+    <div class="container-md d-flex justify-content-center align-items-center">
+      <div class="alert bg-danger alert-dismissible fade show" role="alert">
+        <strong>Wrong!</strong> <%= errorMessage %>
+         <button type="button" class="close border-0 bg-transparent" data-dismiss="alert">
+          <i class="fa-solid fa-x"></i>
+        </button>
+      </div>
+    </div>
+    <% }%>
+    <% if(locals.success){%>
+
+      <div class="container-md d-flex justify-content-center align-items-center">
+        <div class="alert bg-success alert-dismissible fade show text-white" role="alert">
+          <strong>Success!</strong> <%= success %>
+           <button type="button" class="close border-0 bg-transparent" data-dismiss="alert">
+            <i class="fa-solid fa-x"></i>
+          </button>
+        </div>
+      </div>
+      <% }%>
+<div class="container mt-3">
+  <form action="/editTask" method="post">
+    <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks">
+    <input type="hidden" value="<%= user.id_user %>" name="id_user">
+    <div class="form-group">
+      <label>Project Name</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Project Name"
+        name="project_name"
+        value="<%= tasks.name %>"
+      />
+      
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Description"
+        name="description"
+        value="<%= tasks.description %>"
+      />
+    </div>
+    <div class="form-group">
+      <label>Priority</label>
+      <div>
+        <select name="priority" class="form-control">
+          <option value="1" <%= tasks.priority == "1" ? "selected" : ""%>>High</option>
+          <option value="2" <%= tasks.priority == "2" ? "selected" : ""%>>Medium</option>
+          <option value="3" <%= tasks.priority == "3" ? "selected" : ""%>>Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group d-md-flex justify-content-between">
+      <div class="col-md-6 col-sm-12 row">
+        <label class="d-flex align-items-center me-2 col-2">Start date</label>
+        <input
+          type="datetime-local"
+          class="form-control w-50 col-md-6 col-sm-12"
+          name="startdate"
+          value="<%= tasks.start_date ? new Date(tasks.due_date).toISOString().slice(0, 16) : '' %>"
+        />
+      </div>
+      <div class="col-md-6 col-sm-12 row mt-4 mt-sm-0">
+        <label class="d-flex align-items-center me-2 col-2">End date</label>
+        <input
+          type="datetime-local"
+          class="form-control w-50 col-md-6 col-sm-12"
+          name="enddate"
+          value="<%= tasks.due_date ? new Date(tasks.due_date).toISOString().slice(0, 16) : '' %>"
+
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Type</label>
+      <select class="form-control" name="type">
+        <option value="1" <%= tasks.type == "1" ? "selected" : ""%>>Personal</option>
+        <option value="2" <%= tasks.type == "2" ? "selected" : ""%>>Business</option>
+      </select>
+    </div>
+
+    <button class="mt-5 btn btn-primary border-0" type="submit">Sửa</button>
+  </form>
+</div>
+<% } else{%>
+<h1 class="text-center">Có lỗi xảy ra, vui lòng thử lại sau!</h1>
+<% }} %> <%- include("../partials/footer.ejs") %>

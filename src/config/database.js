@@ -1,7 +1,6 @@
 import pg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
-console.log();
 
 const db = new pg.Client({
   host: process.env.PG_HOST || "localhost",

@@ -5,8 +5,8 @@
     <a class="navbar-brand p-0" href="/profile">
       <img class="rounded-circle" style="width: 50px; height: auto" src="./images/logo.jpg" alt="logo_user" />
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#ofcanvas">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#ofcanvas">
+      <span class="navbar-toggler-icon border-0"></span>
     </button>
   </div>
 </nav>
@@ -86,10 +86,12 @@
     </button>
   </form>
 </div>
-<% if(locals.error){%>
+<% if(locals.errorMessage){%>
+
+  <!-- alert  -->
   <div class="container-md d-flex justify-content-center align-items-center">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <strong>Wrong!</strong> <%= error %>
+      <strong>Wrong!</strong> <%= errorMessage %>
        <button type="button" class="close border-0 bg-transparent" data-dismiss="alert">
         <i class="fa-solid fa-x"></i>
       </button>

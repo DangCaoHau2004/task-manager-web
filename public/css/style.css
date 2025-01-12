@@ -62,3 +62,18 @@ a:hover {
 .form-check {
   margin-bottom: 20px;
 }
+
+.card-complete {
+  position: relative;
+}
+
+.card-complete:after {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 1px;
+  background: black;
+  content: "";
+  width: 100%;
+  display: block;
+}

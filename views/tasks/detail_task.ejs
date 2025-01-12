@@ -1,0 +1,354 @@
+<%- include("../partials/header.ejs") %> 
+
+<% if (locals.tasks.id_tasks) { %>
+<!-- Offcanvas -->
+<div class="offcanvas offcanvas-start" id="demo">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Thông tin task</h3>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+    ></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <div class="card text-center p-0 border-0">
+      <div class="card-header bg-transparent d-flex justify-content-start">
+        <strong>Name: <%= tasks.name %></strong>
+      </div>
+      <div class="card-body p-0">
+        <div class="list-group p-0 rounded-0 border-0">
+          <div
+            class="list-group-item border-0 bg-secondary text-white d-flex justify-content-start"
+          >
+            Description: <%= tasks.description %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Priority: <%= tasks.priority == 1 ? "High" : tasks.priority == 2 ?
+            "Medium" : "Low" %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Type: <%= tasks.type == 1 ? "Personal" : "Business" %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Start Date: <%= tasks.start_date_formart %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Due Date: <%= tasks.due_date_formart %>
+          </div>
+        </div>
+      </div>
+      <a
+        href="/editTask?id_tasks=<%= tasks.id_tasks %>"
+        class="btn btn-primary border-0 rounded-0 mb-3"
+      >
+        Sửa
+      </a>
+      
+
+      <form action="/deleteTask" method="post">
+        <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks" />
+        <button class="btn btn-danger border-0 rounded-0 w-100" type="submit">
+          Xóa
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add Table -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <% if(locals.user) { %>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Table</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/addTable" method="post">
+          <div class="form-group">
+            <label>Table Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Project Name"
+              name="project_name"
+            />
+          </div>
+          <div class="form-group">
+            <label>Description: </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Description"
+              name="description"
+            />
+          </div>
+          <div class="form-group">
+            <label>Priority: </label>
+            <select name="priority" class="form-control">
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3">Low</option>
+            </select>
+          </div>
+          <div class="form-group d-md-flex justify-content-between">
+            <div class="col-md-6 col-sm-12 row gap-1">
+              <label class="d-flex align-items-center me-2 col-2"
+                >Start date</label
+              >
+              <input
+                type="datetime-local"
+                class="form-control w-75 col-sm-12"
+                name="startdate"
+              />
+            </div>
+            <div class="col-md-6 col-sm-12 row mt-4 mt-sm-0 gap-1">
+              <label class="d-flex align-items-center me-2 col-2"
+                >End date</label
+              >
+              <input
+                type="datetime-local"
+                class="form-control w-75 col-sm-12"
+                name="enddate"
+              />
+            </div>
+          </div>
+          <input
+            type="hidden"
+            name="id_user"
+            value="<%= locals.user.id_user %>"
+          />
+          <input type="hidden" name="id_tasks" value="<%= tasks.id_tasks %>" />
+          <button class="mt-5 btn btn-primary border-0" type="submit">
+            Add
+          </button>
+        </form>
+      </div>
+      <% }else{ %>
+        <div class="modal-body">
+          <a href="/login-signUp"><h1>Please click here to log in.</h1></a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container-fluid">
+<!-- navbar  -->
+<div class="container">
+  <nav class="navbar fixed-top navbar-light mb-5 p-0">
+    <div class="container-fluid d-flex justify-content-between">
+      <a class="navbar-brand p-0" href="/profile">
+        <img
+          class="rounded-circle"
+          style="width: 50px; height: auto"
+          src="./images/logo.jpg"
+          alt="logo_user"
+        />
+      </a>
+      <div class="p-3 rounded-circle bg-white">
+        <a
+          class="link-dark w-auto d-flex justify-content-center align-content-center"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </a>
+      </div>
+      <button
+        class="navbar-toggler border-0"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#demo"
+      >
+        <span class="navbar-toggler-icon border-0"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Alert -->
+  <% if (locals.errorMessage) { %>
+  <div class="mt-5 alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Wrong!</strong> <%= errorMessage %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  <% } %>
+  
+  <% if (locals.success) { %>
+  <div
+    class="mt-5 alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>Success!</strong> <%= success %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  <% } %>
+
+  <div class="row my-5">
+  <div class="d-flex p-0">
+      <!-- sắp xếp  -->
+    <div class="dropdown border-0 mt-3">
+  <button
+    class="btn btn-secondary dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <i class="fa-solid fa-arrow-down-short-wide"></i>
+    Sắp xếp
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <form action="/detail_task" method="get">
+        <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks">
+
+        <button
+          class="dropdown-item"
+          type="submit"
+          value="id_table"
+          name="sort"
+        >
+          Sắp xếp theo thứ tự thêm
+        </button>
+      </form>
+    </li>
+    <li>
+      <form action="/detail_task" method="get">
+        <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks">
+        <button
+          class="dropdown-item"
+          type="submit"
+          value="priority"
+          name="sort"
+        >
+          Sắp xếp theo độ quan trọng
+        </button>
+      </form>
+    </li>
+    <li>
+      <form action="/detail_task" method="get">
+        <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks">
+        <button class="dropdown-item" type="submit" value="name" name="sort">
+          Sắp xếp theo tên
+        </button>
+      </form>
+    </li>
+    <li>
+      <form action="/detail_task" method="get">
+        <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks">
+        <button class="dropdown-item" type="submit" value="start_date" name="sort">
+          Sắp xếp theo ngày bắt đầu
+        </button>
+      </form>
+    </li>
+    <li>
+      <form action="/detail_task" method="get">
+        <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks">
+        <button class="dropdown-item" type="submit" value="due_date" name="sort">
+          Sắp xếp theo ngày hết hạn
+        </button>
+      </form>
+    </li>
+  </ul>
+    </div>
+
+    <!-- Thêm người  -->
+     <!-- chỉ hiện khi public -->
+    <% if(tasks.type != "1"){ %>
+    <button
+    class="btn btn-primary mt-3 border-0 ms-auto"
+  >
+      <a href="/editTask?id_tasks=<%= tasks.id_tasks %>" class="text-white">
+          Thêm người
+      </a>
+    </button>
+    <% } %>
+  </div>
+    <div class="col-12 my-4">
+      <div class="row gap-3 justify-content-start">
+        <% if (locals.tables && locals.tables.length > 0) { %>
+        <% tables.forEach(table => { %>
+        <div class="card p-0" style="width: 18rem">
+          <div class="card-header"><%= table.name_table %></div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Description: <%= table.description_table %>
+            </li>
+            <li class="list-group-item">
+              Priority: <%= table.priority_table == 1 ? "High" :
+              table.priority_table == 2 ? "Medium" : "Low" %>
+            </li>
+            <li class="list-group-item">
+              Start Date: <%= table.start_date_formart %>
+            </li>
+            <li class="list-group-item">
+              End Date: <%= table.due_date_formart %>
+            </li>
+          </ul>
+          <div class="card-footer d-flex justify-content-center">
+            <a href="/detail_table?id_table=<%= table.id_table %>"
+              >Xem chi tiết</a
+            >
+          </div>
+        </div>
+        <% }); %> 
+        <% } else { %>
+        <h2>No table</h2>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- comment  -->
+<div class="card mb-5 w-100 border-0 rounded-0" style="width: 18rem;">
+  <div class="card-header">
+    Bình luận
+  </div>
+  <ul class="list-group list-group-flush mb-5">
+    <li class="list-group-item text-dark d-flex">
+      <a href="#" class="col-3">Đặng Cao Hậu:</a>
+      <p class="col-7 m-0">Hay lắm</p>
+      <p class="col-7 m-0">01-01-2025 08:00</p>
+    </li>
+  </ul>
+</div>
+<% } else { %>
+  <div class="container mt-5">
+    <h4>Task không hợp lệ</h4>
+  </div>
+  <% } %> 
+<%- include("../partials/footer.ejs") %>
+</div>

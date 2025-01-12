@@ -1,36 +1,107 @@
 <%- include("./partials/header.ejs") %>
-<!-- nav -->
+<!-- Navbar -->
 <nav class="navbar bg-transparent">
   <div class="container-md d-flex justify-content-center border-bottom">
     <h5 class="mb-3">Profile</h5>
   </div>
 </nav>
-<% if(locals.user){ %>
 
+<% if (locals.user || locals.userOther) { %> <% if (locals.errorMessage) { %>
+<!-- Alert -->
+<div class="container-md d-flex justify-content-center align-items-center">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Wrong!</strong> <%= errorMessage %>
+    <button
+      type="button"
+      class="close border-0 bg-transparent"
+      data-dismiss="alert"
+    >
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+</div>
+<% } %> <% if (locals.session) { %>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change Profile</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/edit-profile" method="post">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              value="<%= user.name %>"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="email"
+              value="<%= user.email %>"
+            />
+          </div>
+          <input type="hidden" value="<%= user.id_user %>" name="id_user" />
+          <div class="mt-5">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% }else{ %>
+<!-- người dùng khác  -->
 <div class="container-md mt-2">
   <div class="header d-flex flex-column align-items-center mt-2">
-    <!-- Logo User -->
     <img
       class="rounded-circle"
       style="width: 50px; height: auto"
       src="./images/user.jpg"
       alt="logo_user"
     />
-    <!-- Name -->
-    <p class="mt-3 text-center font-weight-bold"><%= user.name %></p>
-    <!-- edit profile btn  -->
-    <button type="button" class="btn w-100">Edit Profile</button>
+    <p class="mt-3 text-center font-weight-bold"><%= userOther.name %></p>
   </div>
+
   <div class="information mt-5">
     <div class="list-group">
       <p class="list-group-item border-0 border-bottom">
-        Email: <%= user.email %>
+        Email: <%= userOther.email %>
       </p>
     </div>
   </div>
 </div>
-<% } else{%>
+
+<% }} else { %>
 <div class="container d-flex justify-content-center">
-  <a href="/login-signUp"><h1>Please click here to log in.</h1></a>
+  <a href="/login-signUp">
+    <h1>Please click here to log in.</h1>
+  </a>
 </div>
-<% }%> <%- include("./partials/footer.ejs") %>
+<% } %> <%- include("./partials/footer.ejs") %>

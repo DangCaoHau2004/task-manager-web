@@ -1,0 +1,246 @@
+<%- include("../partials/header.ejs") %>
+<!-- nav -->
+<% if (locals.table) { %>
+<nav class="navbar bg-transparent">
+  <div class="container-md d-flex justify-content-center border-bottom">
+    <h4 class="mb-3"><%= table.name %></h4>
+    <button
+      class="navbar-toggler border-0 p-0 mb-3 ms-auto"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#ofcanvas"
+    >
+      <span class="navbar-toggler-icon border-0"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Offcanvas menu  -->
+<div class="offcanvas offcanvas-start" id="ofcanvas">
+  <div class="offcanvas-header border-bottom">
+    <a class="navbar-brand p-0" href="profile">
+      <img
+        class="rounded-circle"
+        style="width: 50px; height: auto"
+        src="./images/user.jpg"
+        alt="logo_user"
+      />
+    </a>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <h6 class="mb-3"><%= table.name %>:</h6>
+    <ul class="list-group list-group-flush">
+      <!-- List menu items -->
+      <li class="list-group-item">
+        <p class="m-0">Description: <%= table.description %></p>
+      </li>
+      <li class="list-group-item">
+        <p class="m-0">
+          Priority: <%= table.priority == 1 ? "High" : table.priority == 2 ?
+          "Medium" : "Low" %>
+        </p>
+      </li>
+      <li class="list-group-item">
+        <p class="m-0">Start Date: <%= table.start_date_formart %></p>
+      </li>
+      <li class="list-group-item">
+        <p class="m-0">End Date: <%= table.due_date_formart %></p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- alert  -->
+<% if (locals.errorMessage) { %>
+<div class="container-md d-flex justify-content-center align-items-center">
+  <div
+    class="mt-4 alert alert-danger alert-dismissible fade show p-2"
+    role="alert"
+  >
+    <strong>Wrong!</strong> <%= errorMessage %>
+    <button
+      type="button"
+      class="close border-0 bg-transparent"
+      data-bs-dismiss="alert"
+    >
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+</div>
+<% } if (locals.success) { %>
+<div class="container-md d-flex justify-content-center align-items-center">
+  <div
+    class="mt-4 alert bg-success alert-dismissible fade show text-white p-2"
+    role="alert"
+  >
+    <strong>Success!</strong> Thành công
+    <button
+      type="button"
+      class="close border-0 bg-transparent"
+      data-bs-dismiss="alert"
+    >
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+</div>
+<% } %>
+
+<!-- content  -->
+<div class="container-md mt-2">
+  <div class="d-flex justify-content-between">
+    <h5>Danh sách thẻ</h5>
+    <a
+      class="link-dark"
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      data-bs-whatever="@mdo"
+    >
+      <div
+        class="p-2 rounded-circle d-flex justify-content-start align-items-center"
+        style="background-color: #a357f5; width: 30px; height: 30px"
+      >
+        <i class="fa-solid fa-plus text-white"></i>
+      </div>
+    </a>
+
+    <!-- modal change profile  -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <% if (user) { %>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Card</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/addCard" method="post">
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Name:</label>
+                <input type="text" class="form-control" name="name" />
+              </div>
+
+              <input type="hidden" name="id_user" value="<%= user.id_user %>" />
+              <input
+                type="hidden"
+                name="id_tasks"
+                value="<%= table.id_tasks %>"
+              />
+              <input
+                type="hidden"
+                name="id_table"
+                value="<%= table.id_table %>"
+              />
+              <div class="mt-5">
+                <button
+                  type="button"
+                  class="btn btn-primary border-0"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary border-0">
+                  Add Card
+                </button>
+              </div>
+            </form>
+          </div>
+          <% } else { %>
+          <div class="container d-flex justify-content-center p-5">
+            <a href="/login-signUp" class="p-5"
+              ><h1>Please click here to log in.</h1></a
+            >
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="list-group list-group-flush mt-3">
+    <% if (table.id_card) { %> <% cardUndone.forEach((card) => { %>
+    <li class="list-group-item d-flex p-2">
+      <form action="/completeCard" method="post" class="me-3">
+        <input type="checkbox" name="check" onchange="this.form.submit()" />
+        <input type="hidden" name="id_card" value="<%= card.id_card %>" />
+        <input type="hidden" name="id_table" value="<%= table.id_table %>" />
+        <input type="hidden" name="id_tasks" value="<%= table.id_tasks %>" />
+      </form>
+      <p class="overflow-hidden"><%= card.name_card %></p>
+    </li>
+    <% }); %> <% } else { %>
+    <li class="list-group-item d-flex p-2">
+      <p class="overflow-hidden">Không tồn tại Card</p>
+    </li>
+    <% } %>
+  </ul>
+  <h5 class="mt-5">Danh sách thẻ đã hoàn thành</h5>
+  <ul class="list-group list-group-flush mt-3">
+    <% if (table.id_card) { %> <% if(cardComplete.length > 0){
+    cardComplete.forEach((card) => { %>
+
+    <li class="list-group-item d-flex p-2 card-complete p-2">
+      <form action="/completeCard" method="post" class="me-3">
+        <input
+          type="checkbox"
+          name="check"
+          onchange="this.form.submit()"
+          checked
+        />
+        <input type="hidden" name="id_card" value="<%= card.id_card %>" />
+        <input type="hidden" name="id_table" value="<%= table.id_table %>" />
+        <input type="hidden" name="id_tasks" value="<%= table.id_tasks %>" />
+      </form>
+      <p class="overflow-hidden m-0"><%= card.name_card %></p>
+    </li>
+
+    <% });}else{ %>
+
+    <p class="p-2">Không có card hoàn thành</p>
+    <% }}else{ %>
+    <p class="p-2">Không tồn tại card</p>
+
+    <% } %>
+  </ul>
+
+  <form
+    action="/deleteTable"
+    method="post"
+    class="d-flex justify-content-center mt-5 mb-3"
+  >
+    <input type="hidden" name="id_table" value="<%= table.id_table %>" />
+    <input type="hidden" name="id_tasks" value="<%= table.id_tasks %>" />
+    <button class="btn btn-danger border-0 mt-5" type="submit">Xóa</button>
+  </form>
+</div>
+
+<!-- comment  -->
+<div class="card mb-5 w-100 border-0 rounded-0" style="width: 18rem">
+  <div class="card-header">Bình luận</div>
+  <ul class="list-group list-group-flush mb-5">
+    <li class="list-group-item text-dark d-flex">
+      <a href="#" class="col-3">Đặng Cao Hậu:</a>
+      <p class="col-7 m-0">Hay lắm</p>
+      <p class="col-7 m-0">01-01-2025 08:00</p>
+    </li>
+  </ul>
+</div>
+<% } else { %>
+<div class="container mt-5"><h3>Bảng không hợp lệ!</h3></div>
+<% } %> <%- include("../partials/footer.ejs") %>

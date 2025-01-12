@@ -1,0 +1,19 @@
+<%- include("../partials/header.ejs") %>
+<!-- Search Bar  -->
+<div
+  class="container-md mb-5 d-flex justify-content-center align-items-center mt-5"
+>
+  <form role="search" class="col-8 col-sm-10 d-flex mt-5" action="/friend">
+    <input
+      class="form-control rounded-0"
+      type="search"
+      placeholder="Search email..."
+      name="email"
+    />
+    <button type="submit" class="btn btn-outline-primary rounded-0 border-0">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</div>
+
+<%- include("../partials/footer.ejs") %>
