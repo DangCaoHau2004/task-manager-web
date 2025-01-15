@@ -13,7 +13,7 @@ import {
 } from "./routes/taskRoutes.js";
 import { tableRoute, deleteTableRoute } from "./routes/tableRoutes.js";
 import { addCardRoute, updateCardRoute } from "./routes/cardRoutes.js";
-import { friendRoute } from "./routes/friendRoutes.js";
+import { friendRoute, addFriendRoute } from "./routes/friendRoutes.js";
 friendRoute;
 dotenv.config();
 
@@ -54,6 +54,7 @@ app.use("/deleteTable", deleteTableRoute);
 app.use("/addCard", addCardRoute);
 app.use("/completeCard", updateCardRoute);
 app.use("/friend", friendRoute);
+app.use("/addFriend", addFriendRoute);
 
 app.listen(port, (req, res) => {
   console.log(`Server running on http://localhost:${port}`);

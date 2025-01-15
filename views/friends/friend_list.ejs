@@ -1,9 +1,90 @@
-<%- include("../partials/header.ejs") %>
-<!-- Search Bar  -->
+<%- include("../partials/header.ejs") %> <% if(locals.user){ %>
+
+<div class="container mt-3 d-flex justify-content-end">
+  <button
+    type="button"
+    class="btn btn-primary border-0 position-relative"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    <i class="fa-solid fa-user-plus"></i>
+    <% if(locals.count_req_add) {%>
+    <span
+      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+    >
+      <%= count_req_add %>
+      <span class="visually-hidden">unread messages</span>
+    </span>
+    <% } %>
+  </button>
+</div>
+<!-- modal  -->
 <div
-  class="container-md mb-5 d-flex justify-content-center align-items-center mt-5"
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
 >
-  <form role="search" class="col-8 col-sm-10 d-flex mt-5" action="/friend">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lời mời kết bạn</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body overflow-auto">
+        <% if(locals.req_add) {%> <% if(req_add.length > 0){ %>
+        <!-- xử lý khi có lời mời kết bạn -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% req_add.forEach((req)=>{ %>
+            <tr>
+              <td><%= req.name %></td>
+              <td><%= req.email %></td>
+              <td>
+                <form action="/addFriend" method="post">
+                  <input
+                    type="hidden"
+                    value="<%= req.id_friend_tb %>"
+                    name="id_friend_tb"
+                  />
+                  <button
+                    name="type"
+                    value="xn"
+                    type="submit"
+                    class="btn btn-outline-primary rounded border-0"
+                  >
+                    Đồng ý
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% }else{ %>
+        <!-- xử lý khi ko có lời mời kết bạn  -->
+        <p>Không có lời mời kết bạn!</p>
+        <% } }%>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- search  -->
+<div class="container my-5">
+  <form role="search" class="d-flex mt-5" action="/friend">
     <input
       class="form-control rounded-0"
       type="search"
@@ -16,4 +97,72 @@
   </form>
 </div>
 
-<%- include("../partials/footer.ejs") %>
+<div class="container-md justify-content-center align-items-center">
+  <!-- Xử lý tìm kiếm -->
+
+  <% if(locals.friend_search ){ if(friend_search.length == 0){ %>
+  <!-- xử lý khi không tìm thấy  -->
+  <h4 class="d-flex justify-content-center">Không có kết quả tìm kiếm</h4>
+
+  <% }else { %>
+  <!-- xử lý khi tìm thấy  -->
+  <h4>Kết quả tìm kiếm:</h4>
+  <table class="table mb-5">
+    <thead>
+      <tr>
+        <th scope="col">Tên</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">
+          <a
+            href="/profile?id_user=<%= friend_search.id_user %>"
+            class="text-black"
+          >
+            <%= friend_search.name %>
+          </a>
+        </th>
+        <td><p class="m-0 p-0"><%= friend_search.email %></p></td>
+      </tr>
+    </tbody>
+  </table>
+  <% }} %>
+
+  <!-- Danh sách bạn bè -->
+  <h4 class="mt-5">Bạn bè:</h4>
+  <% if(locals.friend_list && friend_list.length > 0) { %>
+  <!-- Xử lý khi có bạn -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Tên</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% friend_list.forEach((friend) => { %>
+      <tr>
+        <th scope="row">
+          <a href="/profile?id_user=<%= friend.id_user %>" class="text-black">
+            <%= friend.name %>
+          </a>
+        </th>
+        <td><p class="m-0 p-0"><%= friend.email %></p></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <% } else { %>
+  <!-- Xử lý khi không có bạn -->
+  <p class="mt-3">Bạn chưa có người bạn nào!</p>
+  <% } %>
+</div>
+<% } else { %>
+<div class="container d-flex justify-content-center mt-4">
+  <a href="/login-signUp">
+    <h1>Please click here to log in.</h1>
+  </a>
+</div>
+<% } %> <%- include("../partials/footer.ejs") %>
