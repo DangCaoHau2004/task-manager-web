@@ -1,0 +1,165 @@
+<%- include("../partials/header.ejs") %> <% if (locals.tasks) { %>
+<!-- Offcanvas -->
+<div class="offcanvas offcanvas-start" id="demo">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Thông tin task</h3>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+    ></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <div class="card text-center p-0 border-0">
+      <div class="card-header bg-transparent d-flex justify-content-start">
+        <strong>Name: <%= tasks.name %></strong>
+      </div>
+      <div class="card-body p-0">
+        <div class="list-group p-0 rounded-0 border-0">
+          <div
+            class="list-group-item border-0 bg-secondary text-white d-flex justify-content-start"
+          >
+            Description: <%= tasks.description %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Priority: <%= tasks.priority == 1 ? "High" : tasks.priority == 2 ?
+            "Medium" : "Low" %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Type: <%= tasks.type == 1 ? "Personal" : "Business" %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Start Date: <%= tasks.start_date_formart %>
+          </div>
+          <div
+            class="list-group-item border-0 border-bottom d-flex justify-content-start"
+          >
+            Due Date: <%= tasks.due_date_formart %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if(locals.errorMessage){%>
+
+  <!-- alert  -->
+  <div class="container-md d-flex justify-content-center align-items-center mt-5">
+    <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+      <strong>Wrong!</strong> <%= errorMessage %>
+       <button type="button" class="close border-0 bg-transparent" data-dismiss="alert">
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+  </div>
+  <% }%>
+<!-- Main Content -->
+<div class="container-fluid">
+  <!-- navbar  -->
+  <div class="container">
+    <nav class="navbar fixed-top navbar-light mb-5 p-0">
+      <div class="container-fluid d-flex justify-content-between">
+        <a class="navbar-brand p-0" href="/profile">
+          <img
+            class="rounded-circle"
+            style="width: 50px; height: auto"
+            src="./images/logo.jpg"
+            alt="logo_user"
+          />
+        </a>
+
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#demo"
+        >
+          <span class="navbar-toggler-icon border-0"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- table  -->
+    <table class="table" style="margin-top: 100px">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Tên người tham gia</th>
+          <th scope="col">Quyền hạn</th>
+          <th scope="col">Xóa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(userInTasks.length > 0){ for(let i = 0; i < userInTasks.length;
+        i++) { %>
+        <tr>
+          <th scope="row"><%= i %></th>
+          <td><a class="text-black" href="/profile?id_user=<%= userInTasks[i].id_username %>"><%= userInTasks[i].username %></a></td>
+          <td>
+            <% if(userInTasks[i].role == 1){ %>
+              <p class="m-0">Admin</p>
+              <% }else{ %>
+            <form action="/editRole" method="post">
+              <input
+                type="hidden"
+                value="<%= userInTasks[i].id_username %>"
+                name="id_user"
+              /><input
+              type="hidden"
+              value="<%= tasks.id_tasks %>"
+              name="id_tasks"
+            />
+              <select
+                name="roleChange"
+                class="border-0"
+                onchange="this.form.submit()"
+              >
+                <option value="2" <%= userInTasks[i].role == 2 ? "selected" : "" %>>Project Manager</option>
+                <option value="3" <%= userInTasks[i].role == 3 ? "selected" : "" %>>Member</option>
+              </select>
+            </form>
+            <% } %>
+          </td>
+          <td>
+            <% if(userInTasks[i].role == 1){ %>
+              
+              <% }else{ %>
+            <form action="/deleteRole" method="post">
+              <input
+              type="hidden"
+              value="<%= userInTasks[i].id_username %>"
+              name="id_user"
+            />
+              <input
+                type="hidden"
+                value="<%= tasks.id_tasks %>"
+                name="id_tasks"
+              />
+              <button
+                class="btn btn-danger border-0 rounded-0 w-100"
+                type="submit"
+              >
+                Xóa
+              </button>
+            </form>
+            <% } %>
+          </td>
+        </tr>
+        <%} } %>
+      </tbody>
+    </table>
+
+    <script src="./js/add_person.js"></script>
+    <% } else{ %>
+    <div class="container mt-5">
+      <h4>Task không hợp lệ</h4>
+    </div>
+
+    <% } %> <%- include("../partials/footer.ejs") %>
+  </div>
+</div>

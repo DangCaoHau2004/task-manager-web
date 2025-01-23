@@ -10,11 +10,14 @@ import {
   detailTasks,
   editTasks,
   deleteTasks,
+  addPerson,
+  personTask,
 } from "./routes/taskRoutes.js";
 import { tableRoute, deleteTableRoute } from "./routes/tableRoutes.js";
 import { addCardRoute, updateCardRoute } from "./routes/cardRoutes.js";
 import { friendRoute, addFriendRoute } from "./routes/friendRoutes.js";
-friendRoute;
+import { editRoleRoute, deleteRoleRoute } from "./routes/roleRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -45,6 +48,7 @@ app.use("/change-password", settingRoute);
 app.use("/addTask", Task);
 app.use("/allTask", Task);
 app.use("/detail_task", detailTasks);
+app.use("/personTask", personTask);
 app.use("/editTask", editTasks);
 app.use("/deleteTask", deleteTasks);
 app.use("/edit-profile", profileRoute);
@@ -55,7 +59,11 @@ app.use("/addCard", addCardRoute);
 app.use("/completeCard", updateCardRoute);
 app.use("/friend", friendRoute);
 app.use("/addFriend", addFriendRoute);
+app.use("/addPerson", addPerson);
+app.use("/addPersonPost", addPerson);
 
+app.use("/editRole", editRoleRoute);
+app.use("/deleteRole", deleteRoleRoute);
 app.listen(port, (req, res) => {
   console.log(`Server running on http://localhost:${port}`);
 });

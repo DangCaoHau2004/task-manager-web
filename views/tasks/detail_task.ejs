@@ -46,9 +46,19 @@
           </div>
         </div>
       </div>
+      <!-- Thêm người  -->
+     <!-- chỉ hiện khi public -->
+      <!-- và chỉ khi là admin hoặc quản trị viên  -->
+       <!-- và phải đăng nhập đã  -->
+    <% if(locals.user && tasks.type == "2" && (role == "1" || role == "2")){ %>
+      
+        <a href="/addPerson?id_tasks=<%= tasks.id_tasks %>" class="btn btn-primary border-0 border-bottom rounded-0 ">
+            Thêm người
+        </a>
+      <% } %>
       <a
         href="/editTask?id_tasks=<%= tasks.id_tasks %>"
-        class="btn btn-primary border-0 rounded-0 mb-3"
+        class="btn btn-primary border-0 border-bottom rounded-0 "
       >
         Sửa
       </a>
@@ -284,17 +294,7 @@
   </ul>
     </div>
 
-    <!-- Thêm người  -->
-     <!-- chỉ hiện khi public -->
-    <% if(tasks.type != "1"){ %>
-    <button
-    class="btn btn-primary mt-3 border-0 ms-auto"
-  >
-      <a href="/editTask?id_tasks=<%= tasks.id_tasks %>" class="text-white">
-          Thêm người
-      </a>
-    </button>
-    <% } %>
+    
   </div>
     <div class="col-12 my-4">
       <div class="row gap-3 justify-content-start">
@@ -332,8 +332,13 @@
   </div>
 </div>
 </div>
+<% if(tasks.type !=1) {%>
+  <div class="container-fluid d-flex justify-content-center">
+    <a href="/personTask?id_tasks=<%= tasks.id_tasks %>" class="text-black mb-2 text-center w-100">Danh sách thành viên</a>
+  </div>
+<% } %>
 <!-- comment  -->
-<div class="card mb-5 w-100 border-0 rounded-0" style="width: 18rem;">
+<div class="card mb-5 w-100 border-0 rounded-0 my-5" style="width: 18rem;">
   <div class="card-header">
     Bình luận
   </div>

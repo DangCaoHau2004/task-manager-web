@@ -54,9 +54,9 @@ async function profileController(req, res) {
           // Người gửi là id_friend thì họ đã gửi yêu cầu kết bạn
 
           if (parseInt(req_friend_data.rows[0].id_friend) == idUser) {
-            send_req_friend = "dong_y"; // "Hủy"
+            send_req_friend = "huy"; // "Hủy"
           } else {
-            send_req_friend = "huy"; // "Đồng ý"
+            send_req_friend = "dong_y"; // "Đồng ý"
           }
           id_friend_tb = req_friend_data.rows[0].id_friend_tb;
           accept = req_friend_data.rows[0].accept;

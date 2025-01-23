@@ -1,23 +1,46 @@
 <%- include("../partials/header.ejs") %> <% if(locals.user){ %>
 
-<div class="container mt-3 d-flex justify-content-end">
-  <button
-    type="button"
-    class="btn btn-primary border-0 position-relative"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
-  >
-    <i class="fa-solid fa-user-plus"></i>
-    <% if(locals.count_req_add) {%>
-    <span
-      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+<div class="d-flex justify-content-between mt-3 container">
+  <% if(locals.errorMessage){%>
+
+  <!-- alert  -->
+  <div class="container-md d-flex justify-content-center align-items-center">
+    <div
+      class="alert alert-danger alert-dismissible fade show m-0 p-3 d-flex align-items-center w-100"
+      role="alert"
+      style="height: 18px"
     >
-      <%= count_req_add %>
-      <span class="visually-hidden">unread messages</span>
-    </span>
-    <% } %>
-  </button>
+      <strong>Wrong!</strong> <%= errorMessage %>
+      <button
+        type="button"
+        class="close border-0 bg-transparent ms-auto"
+        data-dismiss="alert"
+      >
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+  </div>
+  <% } %>
+  <div class="container mt-3 d-flex justify-content-end p-0">
+    <button
+      type="button"
+      class="btn btn-primary border-0 position-relative"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      <i class="fa-solid fa-user-plus"></i>
+      <% if(locals.count_req_add) {%>
+      <span
+        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+      >
+        <%= count_req_add %>
+        <span class="visually-hidden">unread messages</span>
+      </span>
+      <% } %>
+    </button>
+  </div>
 </div>
+
 <!-- modal  -->
 <div
   class="modal fade"

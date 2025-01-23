@@ -5,6 +5,10 @@ async function friendGetController(req, res) {
   let friend_list = [];
   let count_req_add = 0;
   let req_add = null;
+  let errorMessage = null;
+  let errorMessages = {
+    1: "Vui lòng kết bạn để dùng chức năng này", // thêm người vào dự án
+  };
   // Kiểm tra nếu người dùng đã đăng nhập
   if (req.session.user) {
     // Kiểm tra lời mời kết bạn
@@ -65,13 +69,16 @@ async function friendGetController(req, res) {
       return res.redirect("/?errorAddTask=1");
     }
   }
-
+  if (req.query.errorMessage) {
+    errorMessage = errorMessages[req.query.errorMessage];
+  }
   res.render("./friends/friend_list.ejs", {
     user: req.session.user,
     friend_list: friend_list,
     friend_search: friend_search,
     count_req_add: count_req_add,
     req_add: req_add,
+    errorMessage: errorMessage,
   });
 }
 

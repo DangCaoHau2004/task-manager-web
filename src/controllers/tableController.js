@@ -1,5 +1,5 @@
 import db from "../config/database.js";
-import { formatDate } from "../models/formatDate.js";
+import { formatDate } from "../utils/formatDate.js";
 function tableGetController(req, res) {
   if (req.query.id_table) {
     let errorMessage = null;
