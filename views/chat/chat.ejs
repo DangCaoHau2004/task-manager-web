@@ -1,4 +1,4 @@
-<%- include("./partials/header.ejs") %>
+<%- include("../partials/header.ejs") %>
 <!-- nav -->
 <nav class="navbar bg-transparent mb-3">
   <div class="container-md d-flex justify-content-center border-bottom">
@@ -16,7 +16,7 @@
       type="search"
       placeholder="Type to search your conversation...."
     />
-    <button type="submit" class="btn btn-outline-primary rounded-0">
+    <button type="submit" class="btn btn-outline-primary rounded-0 border-0">
       <i class="fas fa-search"></i>
     </button>
   </form>
@@ -24,7 +24,8 @@
 <div class="container-md">
   <ul class="list-group">
     <li class="list-group-item">
-      <div class="d-flex">
+      <!-- thêm id user ở đây  -->
+      <a class="d-flex text-black" href="/chat_messages?id_user=2">
         <img
           class="rounded-circle"
           style="width: 50px; height: auto"
@@ -38,8 +39,8 @@
           </div>
           <span class="badge bg-primary rounded-pill">14</span>
         </div>
-      </div>
+      </a>
     </li>
   </ul>
 </div>
-<%- include("./partials/footer.ejs") %>
+<%- include("../partials/footer.ejs") %>

@@ -1,0 +1,85 @@
+<%- include("../partials/header.ejs") %> <% if (locals.user || locals.ortherUser
+||locals.roomId) { %>
+
+<!-- nav -->
+<nav class="navbar bg-transparent mb-3">
+  <div class="container-md d-flex justify-content-center border-bottom">
+    <h5 class="mb-2"><%= ortherUser.name %></h5>
+  </div>
+</nav>
+
+<!-- id_user  -->
+<input type="hidden" name="id_user" value="<%= user.id_user %>" />
+<!-- username  -->
+<input type="hidden" name="username" value="<%= user.name %>" />
+
+<!-- ortherUsername -->
+<input type="hidden" name="ortherUsername" value="<%= ortherUser.name %>" />
+
+<input type="hidden" name="id_ortherUser" value="<%= ortherUser.id_user %>" />
+<!-- roomId -->
+<input type="hidden" name="roomId" value="<%= roomId %>" />
+
+<!-- content -->
+<div class="container content mb-5 pb-5">
+  <!-- trong trường hợp lần đầu load page từ database -->
+  <% if (locals.list_messages && list_messages.length > 0) { %> <%
+  list_messages.forEach((message) => { %> <% if (message.sender_id ==
+  user.id_user) { %>
+  <!-- tin nhắn của user -->
+  <div class="d-flex flex-row-reverse">
+    <h5 class="m-0 ms-3"><%= user.name %></h5>
+    <p
+      class="text-white p-2 rounded user_message"
+      style="background-color: rgb(156, 27, 195)"
+    >
+      <%= message.message %>
+    </p>
+  </div>
+  <% } else { %>
+  <!-- tin nhắn của user khác -->
+  <div class="d-flex">
+    <h5 class="m-0 me-3"><%= ortherUser.name %></h5>
+    <p
+      class="text-white p-2 rounded ortherUser_message"
+      style="background-color: rgb(156, 27, 195)"
+    >
+      <%= message.message %>
+    </p>
+  </div>
+  <% } %> <% }); %> <% } else { %>
+  <div class="d-flex justify-content-center">
+    <h4>Bạn chưa nhắn gì cả</h4>
+  </div>
+  <% } %>
+  <!-- Sau khi loadpage xong và bắt đầu gửi tin nhắn  -->
+</div>
+
+<!-- input message -->
+<nav class="navbar fixed-bottom navbar-expand-sm bg-transparent">
+  <div
+    class="container-fluid d-flex justify-content-center align-items-end p-4 mb-5"
+  >
+    <div class="col-12 d-flex">
+      <input class="form-control rounded-0" type="search" name="message" />
+      <button
+        type="submit"
+        class="btn btn-outline-primary rounded-0 border-0 send_message"
+      >
+        <i class="fa-solid fa-caret-right"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<% } else { %>
+<div class="container">
+  <h3>Có lỗi xảy ra vui lòng quay về trang chủ</h3>
+  <a href="/">Trang chủ</a>
+</div>
+<% } %>
+<script>
+  window.user = "<%= user %>";
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat_messages.js"></script>

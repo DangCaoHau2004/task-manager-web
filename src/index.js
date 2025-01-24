@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import session from "express-session";
+import { Server } from "socket.io";
+import http from "http";
 import { homePageRoute } from "./routes/homePageRoutes.js";
 import { profileRoute } from "./routes/profileRoutes.js";
 import { loginRoute, logoutRoute, signUpRoute } from "./routes/authRoutes.js";
@@ -17,11 +19,17 @@ import { tableRoute, deleteTableRoute } from "./routes/tableRoutes.js";
 import { addCardRoute, updateCardRoute } from "./routes/cardRoutes.js";
 import { friendRoute, addFriendRoute } from "./routes/friendRoutes.js";
 import { editRoleRoute, deleteRoleRoute } from "./routes/roleRoutes.js";
+import { chatRoutes, chatMessages } from "./routes/chatRoutes.js";
+import { saveMessagesToDB } from "./utils/messages.js";
+import { join } from "path";
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
+const server = http.createServer(app);
+// tạo một websocket
+const io = new Server(server);
 
 //middleware
 app.use(express.urlencoded({ extended: true })); // phân tích dữ liệu từ form
@@ -64,6 +72,36 @@ app.use("/addPersonPost", addPerson);
 
 app.use("/editRole", editRoleRoute);
 app.use("/deleteRole", deleteRoleRoute);
-app.listen(port, (req, res) => {
+app.use("/chat", chatRoutes);
+app.use("/chat_messages", chatMessages);
+
+// Xử lý chat
+
+io.on("connection", (socket) => {
+  console.log("A user connected", socket.id, socket.rooms);
+
+  socket.on("join", (roomId) => {
+    socket.join(roomId);
+  });
+
+  socket.on("send_message", (data) => {
+    //lưu giữ liệu vào db
+    saveMessagesToDB(data.message, data.sender_id, data.receiver_id);
+
+    //đẩy giữ liệu lên web
+    socket.emit("receiver_message", {
+      sender_id: data.sender_id,
+      receiver_id: data.receiver_id,
+      message: data.message,
+    });
+    socket.to(data.roomId).emit("receiver_message", {
+      sender_id: data.sender_id,
+      receiver_id: data.receiver_id,
+      message: data.message,
+    });
+  });
+});
+
+server.listen(port, (req, res) => {
   console.log(`Server running on http://localhost:${port}`);
 });
