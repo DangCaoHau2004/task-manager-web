@@ -128,7 +128,12 @@
   gửi yêu cầu và chưa kết bạn Nếu có cả 2 cái đó thì nếu send_req_friend =
   dong_t thì là cần xác nhận nếu người send_req_friend là huy thì là hủy lời mời kết bạn Nếu
   accept là 1 thì là đã kết bạn và cần nút hủy kết bạn -->
-
+  <form action="/chat_messages">
+    <input type="hidden" name="id_user" value="<%= userOther.id_user %>" />
+    <button class="btn w-100 btn-primary border-0 mb-3" type="submit">
+      Nhắn tin
+    </button>
+  </form>
   <% if(locals.accept && locals.accept == "1") {%>
   <!-- đã kết bạn -->
 

@@ -337,19 +337,99 @@
     <a href="/personTask?id_tasks=<%= tasks.id_tasks %>" class="text-black mb-2 text-center w-100">Danh sách thành viên</a>
   </div>
 <% } %>
+
+<!-- chỉ được hiển thị comment khi nó ko phải Personal -->
 <!-- comment  -->
+ <% if( tasks.type != 1){ %>
 <div class="card mb-5 w-100 border-0 rounded-0 my-5" style="width: 18rem;">
-  <div class="card-header">
+  <div class="card-header d-flex justify-content-between">
+    <h5>
     Bình luận
+    </h5>
+    <button
+      type="button"
+      class="btn btn-primary border-0"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal1"
+    >
+    <i class="fa-solid fa-plus"></i>
+    </button>
   </div>
+ <% if(locals.comments && comments.length > 0){ %>
+<% comments.forEach((comment)=>{%>
   <ul class="list-group list-group-flush mb-5">
+    <%  %>
     <li class="list-group-item text-dark d-flex">
-      <a href="#" class="col-3">Đặng Cao Hậu:</a>
-      <p class="col-7 m-0">Hay lắm</p>
-      <p class="col-7 m-0">01-01-2025 08:00</p>
+      <a href="/profile?id_user=<%= comment.id_user %>" class="col-3 text-black"><%= comment.name %>:</a>
+      <p class="col-7 m-0"><%= comment.content %></p>
+      <p class="col-7 m-0"><%= comment.cm_create %></p>
     </li>
   </ul>
+<% })}else{
+
+ %>
+ <h5 class="text-center">Không có comment</h5>
+<% } %>
 </div>
+<% } %>
+
+
+<!-- modal  -->
+<div
+  class="modal fade"
+  id="exampleModal1"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm bình Luận mới!</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <% if(user){%>
+      <div class="modal-body">
+        <form action="/addComment" method="post">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"><%= user.name %>:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="content"
+            />
+          </div>
+          <input type="hidden" value="<%= user.id_user %>" name="id_user" />
+          <input type="hidden" value="<%= tasks.id_tasks %>" name="id_tasks" />
+          <div class="mt-5">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary border-0">Thêm</button>
+          </div>
+        </form>
+      </div>
+    <% }else{ %>
+      <div class="modal-body">
+        <a href="/login-signUp">Vui lòng đăng nhập trước!</a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+
+
+
 <% } else { %>
   <div class="container mt-5">
     <h4>Task không hợp lệ</h4>

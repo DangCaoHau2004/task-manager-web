@@ -3,8 +3,14 @@
 
 <!-- nav -->
 <nav class="navbar bg-transparent mb-3">
-  <div class="container-md d-flex justify-content-center border-bottom">
+  <div class="container-md d-flex justify-content-between border-bottom">
+    <a href="/">
+      <h5 class="text-black">Quay về trang chủ</h5>
+    </a>
     <h5 class="mb-2"><%= ortherUser.name %></h5>
+    <a href="/chat">
+      <h5 class="text-black">Quay về chat</h5>
+    </a>
   </div>
 </nav>
 
@@ -48,7 +54,7 @@
     </p>
   </div>
   <% } %> <% }); %> <% } else { %>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center not-chat">
     <h4>Bạn chưa nhắn gì cả</h4>
   </div>
   <% } %>

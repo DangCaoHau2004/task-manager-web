@@ -5,27 +5,18 @@
     <h5 class="mb-2">Inbox</h5>
   </div>
 </nav>
-<!-- search  -->
 
-<div
-  class="container-md mb-5 d-flex justify-content-center align-items-center mt-2"
->
-  <form role="search" class="col-8 col-sm-10 d-flex">
-    <input
-      class="form-control rounded-0"
-      type="search"
-      placeholder="Type to search your conversation...."
-    />
-    <button type="submit" class="btn btn-outline-primary rounded-0 border-0">
-      <i class="fas fa-search"></i>
-    </button>
-  </form>
-</div>
+<% if (locals.user && locals.messages && Object.keys(locals.messages).length >
+0) { %>
 <div class="container-md">
   <ul class="list-group">
+    <% for (const roomId in messages) { %>
     <li class="list-group-item">
-      <!-- thêm id user ở đây  -->
-      <a class="d-flex text-black" href="/chat_messages?id_user=2">
+      <!-- Lấy thông tin sender_id và receiver_id từ messages -->
+      <a
+        class="d-flex text-black"
+        href="/chat_messages?id_user=<%= messages[roomId].receiver_id == user.id_user ? messages[roomId].sender_id : messages[roomId].receiver_id %>"
+      >
         <img
           class="rounded-circle"
           style="width: 50px; height: auto"
@@ -34,13 +25,21 @@
         />
         <div class="d-flex justify-content-between align-items-start w-100">
           <div class="ms-2 me-auto">
-            <div class="fw-bold">Subheading</div>
-            <p class="m-0">Cras justo odio</p>
+            <div class="fw-bold"><%= messages[roomId].username %></div>
+            <p class="m-0"><%= messages[roomId].message %></p>
           </div>
-          <span class="badge bg-primary rounded-pill">14</span>
+          <% if(messages[roomId].receiver_id == user.id_user &&
+          !messages[roomId].is_read) {%>
+          <span class="badge bg-primary rounded-pill p-2"
+            ><i class="fa-regular fa-circle"></i
+          ></span>
+          <% } %>
         </div>
       </a>
     </li>
+    <% } %>
   </ul>
 </div>
-<%- include("../partials/footer.ejs") %>
+<% } else { %>
+<h4 class="text-center">Bạn chưa có đoạn chat nào!</h4>
+<% } %> <%- include("../partials/footer.ejs") %>

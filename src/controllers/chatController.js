@@ -1,7 +1,57 @@
 import db from "../config/database.js";
 
-function chatControllerGet(req, res) {
-  res.render("./chat/chat.ejs");
+async function chatControllerGet(req, res) {
+  if (!req.session.user) {
+    return res.redirect("/login-signUp");
+  }
+
+  // Lấy các tin nhắn của người dùng
+  let resultChatMessages = await db.query(
+    `SELECT *
+      FROM chat_messages 
+      WHERE sender_id = $1 OR receiver_id = $1
+      ORDER BY id;`,
+    [req.session.user.id_user]
+  );
+
+  if (resultChatMessages.rows.length == 0) {
+    return res.render("./chat/chat.ejs", { user: req.session.user });
+  }
+
+  let list_messages = resultChatMessages.rows;
+  let messages = {};
+
+  // Lặp qua các tin nhắn và lưu trữ tin nhắn cuối cùng của mỗi cặp sender và receiver
+  list_messages.forEach((message) => {
+    // Tạo roomId là chuỗi kết hợp sender_id và receiver_id theo thứ tự nhỏ hơn lớn hơn
+    let senderId = parseInt(message.sender_id);
+    let receiverId = parseInt(message.receiver_id);
+
+    let roomId =
+      senderId < receiverId
+        ? senderId + "" + receiverId
+        : receiverId + "" + senderId;
+
+    // Lưu trữ tin nhắn cuối cùng cho mỗi đoạn chat
+    messages[roomId] = {
+      sender_id: message.sender_id,
+      receiver_id: message.receiver_id,
+      message: message.message,
+      is_read: message.is_read,
+    };
+  });
+  for (let roomId in messages) {
+    let id_ortherUser =
+      messages[roomId].sender_id == req.session.user.id_user
+        ? messages[roomId].receiver_id
+        : messages[roomId].sender_id;
+    let result = await db.query("SELECT name FROM users WHERE id_user = $1", [
+      id_ortherUser,
+    ]);
+    messages[roomId].username = result.rows[0].name;
+  }
+
+  res.render("./chat/chat.ejs", { user: req.session.user, messages: messages });
 }
 
 async function chatMessagesControllerget(req, res) {
@@ -24,6 +74,10 @@ async function chatMessagesControllerget(req, res) {
       );
 
       let ortherUser = resutOrtherUser.rows[0];
+      // kiểm tra nếu ko tồn tại user
+      if (!ortherUser) {
+        return res.redirect("/?errorAddTask=1");
+      }
 
       // lấy thông tin đoạn chat có tồn tại id_user và req user
       let resultChatMessages = await db.query(

@@ -13,6 +13,11 @@ window.onload = function () {
 };
 // nhận tin nhắn
 socket.on("receiver_message", (data) => {
+  //xóa dòng bạn chưa nhắn gì cả
+  if (document.querySelector(".not-chat")) {
+    document.querySelector(".not-chat").innerHTML = "";
+  }
+
   if (data.sender_id == id_user) {
     content.innerHTML += `
      <div class="d-flex flex-row-reverse">
@@ -47,4 +52,5 @@ document
       message: message,
       roomId: roomId,
     });
+    document.getElementsByName("message")[0].value = "";
   });

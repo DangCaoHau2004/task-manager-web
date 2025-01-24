@@ -21,8 +21,7 @@ import { friendRoute, addFriendRoute } from "./routes/friendRoutes.js";
 import { editRoleRoute, deleteRoleRoute } from "./routes/roleRoutes.js";
 import { chatRoutes, chatMessages } from "./routes/chatRoutes.js";
 import { saveMessagesToDB } from "./utils/messages.js";
-import { join } from "path";
-
+import { addComment } from "./routes/commentRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -74,12 +73,10 @@ app.use("/editRole", editRoleRoute);
 app.use("/deleteRole", deleteRoleRoute);
 app.use("/chat", chatRoutes);
 app.use("/chat_messages", chatMessages);
-
+app.use("/addComment", addComment);
 // Xử lý chat
 
 io.on("connection", (socket) => {
-  console.log("A user connected", socket.id, socket.rooms);
-
   socket.on("join", (roomId) => {
     socket.join(roomId);
   });

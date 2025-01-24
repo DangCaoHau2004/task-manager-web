@@ -178,6 +178,17 @@ async function detailTask(req, res) {
             errorMessage = errorMessages[req.query.errorMessage];
           }
         }
+
+        // lấy dữ liệu comment
+        let ResultComment = await db.query(
+          "SELECT u.*, c.created_at as cm_create, c.content FROM comments as c INNER JOIN users as u ON u.id_user = c.id_user WHERE c.id_tasks = $1 ORDER BY c.created_at",
+          [req.query.id_tasks]
+        );
+        let comments = ResultComment.rows;
+
+        for (let i = 0; i < comments.length; i++) {
+          comments[i].cm_create = formatDate(comments[i].cm_create);
+        }
         // nếu chưa đăng nhập
         if (!req.session.user) {
           // chưa đăng nhập vẫn được xem với điều kiện task được đăng công khai
@@ -190,6 +201,7 @@ async function detailTask(req, res) {
               tables: tables,
               success: success,
               role: role,
+              comments: comments,
             });
           }
           // nếu không được đăng công khai thì cần đăng nhập
@@ -232,6 +244,7 @@ async function detailTask(req, res) {
         tables: tables,
         success: success,
         role: role,
+        comments: comments,
       });
     } catch (err) {
       console.error(err);
