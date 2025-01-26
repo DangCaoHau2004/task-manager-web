@@ -1,25 +1,23 @@
-<%- include("./partials/header.ejs") %>
+<%- include("./partials/header.ejs") %> <% if (locals.user) { %>
 <!-- nav -->
 <nav class="navbar bg-transparent mb-3">
   <div class="container-md d-flex justify-content-center border-bottom">
     <h5 class="mb-2">Notification</h5>
   </div>
 </nav>
-
-<!-- content  -->
+<!-- content -->
 <div class="content container-md mt-3">
   <div class="title">
-    <h6>Today</h6>
-    <!-- list group notif  -->
-
+    <!-- list group notif -->
     <div class="list-group">
-      <!-- list item notif  -->
+      <% if (notification.length > 0) { %> <% for (let index = 0; index <
+      notification.length; index++) { %>
       <a
         href="#"
         class="list-group-item list-group-item-action mb-2 rounded border"
       >
         <div class="d-flex">
-          <!-- icon  -->
+          <!-- icon -->
           <div class="d-flex align-items-center">
             <img
               class="rounded-circle me-2"
@@ -28,44 +26,24 @@
               alt="logo_user"
             />
           </div>
-          <!-- information notification   -->
+          <!-- information notification -->
           <div class="w-100">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1"><%= notification[index].title %></h5>
             </div>
-            <p class="mb-1">Some placeholder content in a paragraph.</p>
-            <small>And some small print.</small>
+            <p class="mb-1"><%= notification[index].message %></p>
+            <small><%= notification[index].created_at %></small>
           </div>
         </div>
       </a>
-      <!-- list item notif  -->
-      <a
-        href="#"
-        class="list-group-item list-group-item-action mb-2 rounded border"
-      >
-        <div class="d-flex">
-          <!-- icon  -->
-          <div class="d-flex align-items-center">
-            <img
-              class="rounded-circle me-2"
-              style="width: 50px; height: auto"
-              src="./images/user.jpg"
-              alt="logo_user"
-            />
-          </div>
-          <!-- information notification   -->
-          <div class="w-100">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
-            </div>
-            <p class="mb-1">Some placeholder content in a paragraph.</p>
-            <small>And some small print.</small>
-          </div>
-        </div>
-      </a>
+      <% } %> <% } else { %>
+      <h4>Bạn không có thông báo nào</h4>
+      <% } %>
     </div>
   </div>
 </div>
-<%- include("./partials/footer.ejs") %>
+<% } else { %>
+<a href="/login-signUp" class="text-center">
+  <h3>Vui lòng đăng nhập</h3>
+</a>
+<% } %> <%- include("./partials/footer.ejs") %>

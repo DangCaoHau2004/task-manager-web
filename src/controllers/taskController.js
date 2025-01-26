@@ -57,7 +57,7 @@ function addTask(req, res) {
 }
 
 async function allTask(req, res) {
-  let tasks = null;
+  let tasks = [];
   let errorMessage = null;
   let sort = "id_tasks";
 
@@ -76,8 +76,18 @@ async function allTask(req, res) {
   };
   if (req.session.user) {
     try {
+      // Đẩy thêm dữ liệu của task mà mình đã tham gia
+
+      // lấy các task được liên kết với id_user
       let resdb = await db.query(
-        `SELECT * FROM tasks WHERE id_user = $1 ORDER BY ${sort} ASC`,
+        `
+        SELECT 
+          t.*
+          FROM tasks AS t
+          INNER JOIN user_tasks AS ut ON ut.id_tasks = t.id_tasks
+          WHERE ut.id_user = $1
+          Order by t.${sort}
+          `,
         [req.session.user.id_user]
       );
       tasks = resdb.rows;
@@ -88,7 +98,7 @@ async function allTask(req, res) {
   if (req.query.errorMessage) {
     errorMessage = errorMessages[req.query.errorMessage];
   }
-  if (tasks != null) {
+  if (tasks.length > 0) {
     tasks.forEach((task) => {
       task.start_date = formatDate(task.start_date);
       task.due_date = formatDate(task.due_date);
@@ -235,6 +245,16 @@ async function detailTask(req, res) {
         [req.query.id_tasks, req.session.user.id_user]
       );
       role = resultRole.rows[0].role;
+      // lấy dữ liệu comment
+      let ResultComment = await db.query(
+        "SELECT u.*, c.created_at as cm_create, c.content FROM comments as c INNER JOIN users as u ON u.id_user = c.id_user WHERE c.id_tasks = $1 ORDER BY c.created_at",
+        [req.query.id_tasks]
+      );
+      let comments = ResultComment.rows;
+
+      for (let i = 0; i < comments.length; i++) {
+        comments[i].cm_create = formatDate(comments[i].cm_create);
+      }
 
       // Render lại view với dữ liệu
       res.render("./tasks/detail_task.ejs", {

@@ -22,6 +22,8 @@ import { editRoleRoute, deleteRoleRoute } from "./routes/roleRoutes.js";
 import { chatRoutes, chatMessages } from "./routes/chatRoutes.js";
 import { saveMessagesToDB } from "./utils/messages.js";
 import { addComment } from "./routes/commentRoutes.js";
+import { notification } from "./routes/notificationRotues.js";
+import { addNotification } from "./utils/notification.js";
 dotenv.config();
 
 const app = express();
@@ -74,6 +76,8 @@ app.use("/deleteRole", deleteRoleRoute);
 app.use("/chat", chatRoutes);
 app.use("/chat_messages", chatMessages);
 app.use("/addComment", addComment);
+
+app.use("/notification", notification);
 // Xử lý chat
 
 io.on("connection", (socket) => {
@@ -82,10 +86,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_message", (data) => {
-    //lưu giữ liệu vào db
+    //lưu dữ liệu vào db
     saveMessagesToDB(data.message, data.sender_id, data.receiver_id);
-
-    //đẩy giữ liệu lên web
+    addNotification(data.message, data.receiver_id, "Bạn có tin nhắn mới");
+    //đẩy dữ liệu lên web
     socket.emit("receiver_message", {
       sender_id: data.sender_id,
       receiver_id: data.receiver_id,

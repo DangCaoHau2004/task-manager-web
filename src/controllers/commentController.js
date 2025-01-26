@@ -1,4 +1,5 @@
 import db from "../config/database.js";
+import { addNotification } from "../utils/notification.js";
 async function addCommentController(req, res) {
   if (req.session.user) {
     const { content, id_user, id_tasks } = req.body;
@@ -11,6 +12,8 @@ async function addCommentController(req, res) {
         "INSERT INTO comments(id_tasks, id_user, content) VALUES($1, $2, $3)",
         [id_tasks, id_user, content]
       );
+      // thêm thông báo
+      addNotification(content, null, "Có bình luận mới!", id_tasks, 2);
       return res.redirect(`detail_task?id_tasks=${id_tasks}&success=1`);
     } catch (error) {
       console.log(error);

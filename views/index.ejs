@@ -77,15 +77,7 @@
   </div>
 </div>
 
-<!-- Search Bar  -->
-<div class="container-md mb-5 d-flex justify-content-center align-items-center mt-5">
-  <form role="search" class="col-8 col-sm-10 d-flex mt-5">
-    <input class="form-control rounded-0" type="search" placeholder="Search..." />
-    <button type="submit" class="btn btn-outline-primary rounded-0 border-0">
-      <i class="fas fa-search"></i>
-    </button>
-  </form>
-</div>
+
 <% if(locals.errorMessage){%>
 
   <!-- alert  -->
@@ -99,43 +91,56 @@
   </div>
   <% }%>
 <!-- Content Section -->
-<div class="container-md d-flex justify-content-center align-items-center">
-  <div class="content col-8 col-sm-10">
+<div class="container-md d-flex justify-content-center align-items-center mt-5">
+  <div class="content col-8 col-sm-10 mt-5">
     <!-- Recent Projects Section -->
     <div class="d-flex mb-4 justify-content-between">
       <h4>Recent Projects</h4>
-      <a href="#">View all</a>
+      <a href="/allTask">View all</a>
+
     </div>
 
     <!-- List of Cards -->
     <ul class="list-group list-group-horizontal overflow-auto w-100 mb-5 py-2 px-4">
       <!-- Card Item -->
-      <li class="list-group-item p-0 border-0">
+       <% if(locals.recentProject.length > 0){ recentProject.forEach((recentp)=>{%>
+      <li class="list-group-item p-0 border-0 me-3">
         <div class="card border-0 custom-shadow p-2">
           <div class="card-header border-0 d-flex overflow-hidden d-flex justify-content-between bg-transparent">
             <div class="d-flex">
-              <i class="fa-solid fa-gamepad rounded-circle bg-danger p-2"></i>
-              <p class="ms-3 mb-0 overflow-hidden">Gaming pad</p>
+              <p class="ms-0 mb-0 overflow-hidden"><%= recentp.name %></p>
             </div>
             <!-- Task Detail Button -->
             <a href=""><i class="fa-solid fa-ellipsis"></i></a>
           </div>
           <div class="card-body py-0">
             <div class="card-title d-flex">
-              <i class="fa-regular fa-calendar"><p class="ms-2">19/2/1999</p></i>
-              <i class="fa-regular fa-comment ms-5"><p class="ms-2">16</p></i>
-              <i class="fa-solid fa-list ms-5"><p class="ms-2">09</p></i>
+              <i class="fa-regular fa-calendar"><p class="ms-2"><%= recentp.start_date %></p></i>
+              <i class="fa-regular fa-comment ms-5"><p class="ms-2"><%= recentp.count_cm %></p></i>
+              <i class="fa-solid fa-list ms-5"><p class="ms-2"><%= recentp.count_tb %></p></i>
             </div>
           </div>
           <img class="card-img-bottom" src="./images/test1.jpg" />
         </div>
       </li>
+      <% });}else{ %>
+        <li class="list-group-item p-0 border-0">
+          <div class="card border-0 custom-shadow p-2">
+                <h6 class="ms-0 mb-0 overflow-hidden text-center mt-3">Chào bạn đến với web app task manager</h6>
+             
+            <div class="card-body py-0">
+              
+            </div>
+            <img class="card-img-bottom" src="./images/welcome.jpg" />
+          </div>
+        </li>
+        <% } %>
     </ul>
 
     <!-- Today Tasks Section -->
     <div class="d-flex mb-4 justify-content-between">
       <h4>Today tasks</h4>
-      <a href="#">View all</a>
+      <a href="/allTask">View all</a>
     </div>
 
     <!-- List of Today Tasks -->
